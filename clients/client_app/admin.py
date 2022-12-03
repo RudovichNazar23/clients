@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Not_registered_user, Order, Feedback
 
-# Register your models here.
+admin.site.register(Not_registered_user)
+admin.site.register(Order)
+admin.site.register(Feedback)
+
+
