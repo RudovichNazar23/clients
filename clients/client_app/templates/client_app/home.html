@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if request.user.is_authenticated %}
+            {{ request.user.first_name }}
+        {% else %}
+            Home
+        {% endif %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'client_app/css/home.css' %}">
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        <h3>
+            Welcome {{ request.user }}
+        </h3>
+    {% else %}
+        <div class="buttons">
+            <a href="registration">
+                <button class="registration">
+                    Registration
+                </button>
+            </a>
+            <a href="">
+                <button class="no_reg">
+                    Continue without registration
+                </button>
+            </a>
+
+            <a href="">
+                <button class="login">
+                    Login
+                </button>
+            </a>
+        </div>
+    {% endif %}
+</body>
+</html>
