@@ -14,6 +14,9 @@ class RegistrationView(View):
         return render(request, self.template_name, context)
     def post(self, request):
         form = RegistrationForm(request.POST)
+        context = {
+            "form": form
+        }
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get("username")
@@ -22,4 +25,4 @@ class RegistrationView(View):
             login(request, user)
             return redirect("/")
         else:
-            return redirect("/")
+            return render(request, self.template_name, context)

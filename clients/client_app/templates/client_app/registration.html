@@ -17,9 +17,11 @@
                     <b>{{ field.label_tag }}</b>
                  </label>
                 <div class="field">
-                    {{ field }}
+                    <input>
                 </div>
-                {{ field.errors }}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
             {% endfor %}
         </div>
         <input type="submit" value="Submit" class="submit">
