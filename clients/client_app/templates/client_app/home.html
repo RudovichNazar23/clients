@@ -15,8 +15,14 @@
 <body>
     {% if request.user.is_authenticated %}
         <h3>
-            Welcome {{ request.user }}
+            Welcome {{ request.first_name }}
         </h3>
+        <a href="">
+            <button>
+                My profile
+            </button>
+        </a>
+
     {% else %}
         <div class="buttons">
             <a href="registration">
