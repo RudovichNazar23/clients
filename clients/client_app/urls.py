@@ -2,10 +2,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.urls import path
-from .views import RegistrationView
+from .views import RegistrationView, MyProfileView
 
 urlpatterns = [
     path("registration", RegistrationView.as_view(), name="registration"),
+    path("my_profile", MyProfileView.as_view(), name="my_profile"),
 
 
 

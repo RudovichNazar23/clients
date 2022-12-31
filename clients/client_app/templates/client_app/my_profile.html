@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{ request.first_name }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'client_app/css/my_profile.css' %}">
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        <div class="info">
+             <div class="">Your id - {{ request.user.id }}</div>
+             <div class="">Your email - {{ request.user.username }}</div>
+        </div>
+    {% else %}
+        You are not registered !!!
+    {% endif %}
+</body>
+</html>
