@@ -26,3 +26,8 @@ class RegistrationView(View):
             return redirect("/")
         else:
             return render(request, self.template_name, context)
+
+class MyProfileView(View):
+    template_name = "client_app/my_profile.html"
+    def get(self, request):
+        return render(request, self.template_name)
