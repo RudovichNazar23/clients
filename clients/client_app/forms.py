@@ -1,7 +1,13 @@
+from django.shortcuts import render, redirect
+
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+from django.core import validators
+from django.contrib.auth import authenticate
+
+
 class RegistrationForm(forms.Form):
     username = forms.EmailField(
         label="Your email",
@@ -17,7 +23,7 @@ class RegistrationForm(forms.Form):
         widget=forms.TextInput(attrs={"class": "form-control"})
     )
     password1 = forms.CharField(
-        label="Password" ,
+        label="Password",
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password",
                                           "class": "form-control"}),
         min_length=8,
@@ -54,3 +60,17 @@ class RegistrationForm(forms.Form):
             password=self.cleaned_data.get("password1")
         )
         return user
+
+
+class LoginForm(forms.Form):
+    username = forms.EmailField(
+        label="Email",
+        required=True,
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+    password = forms.CharField(
+        label="Password",
+        required=True,
+        widget=forms.PasswordInput(attrs={"class": "form-control"}
+                                   )
+    )
