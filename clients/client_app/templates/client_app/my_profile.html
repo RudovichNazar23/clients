@@ -23,13 +23,17 @@
                <button type="button" class="btn btn-outline-info">Your orders</button>
             </a><br>
             <br>
-            <form action="" method="POST">
-                <button type="button" class="btn btn-outline-danger">Logout</button>
+            <form action="{% url 'logout' %}" method="POST">{% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">Logout</button>
             </form>
         </div>
 
     {% else %}
-        You are not registered !!!
+    <a href="/" class="not_registered">
+        <button style="color: red;">
+            You are not registered !!!
+        </button>
+    </a>
     {% endif %}
 </body>
 </html>

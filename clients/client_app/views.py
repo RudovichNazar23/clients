@@ -4,7 +4,8 @@ from django.views import View
 from django.contrib.auth import login, authenticate
 from .forms import RegistrationForm, LoginForm
 from django.contrib import messages
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
+
 
 class RegistrationView(View):
     template_name = "client_app/registration.html"
@@ -51,6 +52,11 @@ class LoginView(View):
             else:
                 messages.error(request, "You have wrong email or password, please try again...")
                 return render(request, self.template_name, {"form": form})
+
+
+class SignOutView(LogoutView):
+    template_name = "client_app/my_profile.html"
+    next_page = "/"
 
 
 class MyProfileView(View):

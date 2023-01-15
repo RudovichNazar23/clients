@@ -74,3 +74,9 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(attrs={"class": "form-control"}
                                    )
     )
+
+    def clean(self):
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
+        pass
+
