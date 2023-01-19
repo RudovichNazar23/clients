@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from worker_app.models import Worker
 from administrator_app.models import Service
-class Not_registered_user(models.Model):
+
+
+class NotRegisteredUser(models.Model):
     first_name = models.CharField(max_length=100, null=False)
     last_name = models.CharField(max_length=100, null=False)
     email = models.EmailField(max_length=50, null=False, unique=True, error_messages={"unique": "Must be unique"})
@@ -10,6 +12,7 @@ class Not_registered_user(models.Model):
 
     def __str__(self):
         return f"{self.first_name}"
+
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
