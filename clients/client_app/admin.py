@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Not_registered_user, Order, Feedback
+from .models import NotRegisteredUser, Order, Feedback
 
-admin.site.register(Not_registered_user)
+admin.site.register(NotRegisteredUser)
 admin.site.register(Order)
 admin.site.register(Feedback)
 

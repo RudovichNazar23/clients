@@ -45,7 +45,7 @@ class LoginView(View):
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
-            user = authenticate(username=str(username), password=str(password))
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect(self.success_url)
@@ -61,6 +61,13 @@ class SignOutView(LogoutView):
 
 class MyProfileView(View):
     template_name = "client_app/my_profile.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+class MainPageView(View):
+    template_name = "client_app/for_unreg_users.html"
 
     def get(self, request):
         return render(request, self.template_name)
