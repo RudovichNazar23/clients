@@ -7,6 +7,24 @@
     <link rel="stylesheet" type="text/css" href="{% static 'worker_app/css/main_worker.css' %}" >
 </head>
 <body>
+    <h2 class="hello">
+        Hello {{ request.user.first_name }} !
+    </h2>
+    <a href="" class="button" id="schedule">
+        My schedule
+    </a>
+    <br>
+    <br>
+    <a href="" class="button" id="orders">
+        Orders
+    </a>
+    <br>
+    <br>
+    <a href="" class="button" id="feedbacks">
+        Feedbacks
+    </a>
+
+
 
 </body>
 </html>
