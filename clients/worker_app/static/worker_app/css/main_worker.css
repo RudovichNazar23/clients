@@ -1,0 +1,36 @@
+.hello {
+   text-align: center;
+   font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.button {
+    display:inline-block;
+    padding:0.46em 1.6em;
+    width: 200px;
+    height: 45px;
+    border:0.1em solid #000000;
+    margin:0 0.2em 0.2em 0;
+    margin-top: 30px;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color: white;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    background-color:#42cc8c;
+    text-align:center;
+    transition: all 0.15s;
+}
+.button:hover {
+    text-shadow: 0 0 2em rgba(255,255,255,1);
+    color: red;
+    border-color:#FFFFFF;
+}
+@media all and (max-width:30em) {
+    .button {
+    display:block;
+    margin:0.4em auto;
+    }
+}
+
