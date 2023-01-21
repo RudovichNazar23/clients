@@ -4,33 +4,33 @@
 }
 
 .button {
-    display:inline-block;
-    padding:0.46em 1.6em;
-    width: 200px;
-    height: 45px;
-    border:0.1em solid #000000;
-    margin:0 0.2em 0.2em 0;
-    margin-top: 30px;
-    border-radius:0.12em;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    color: white;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-    background-color:#42cc8c;
-    text-align:center;
-    transition: all 0.15s;
-}
-.button:hover {
-    text-shadow: 0 0 2em rgba(255,255,255,1);
-    color: red;
-    border-color:#FFFFFF;
-}
-@media all and (max-width:30em) {
-    .button {
-    display:block;
-    margin:0.4em auto;
-    }
+  background-color: initial;
+  background-image: linear-gradient(-180deg, #FF7E31, #E62C03);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  height: 40px;
+  line-height: 40px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 300px;
+  z-index: 9;
+  border: 0;
+  transition: box-shadow .2s;
 }
 
+.button:hover {
+  box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+}

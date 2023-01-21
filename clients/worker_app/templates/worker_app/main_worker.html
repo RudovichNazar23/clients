@@ -10,21 +10,30 @@
     <h2 class="hello">
         Hello {{ request.user.first_name }} !
     </h2>
-    <a href="" class="button" id="schedule">
-        My schedule
+    <a href="">
+        <button class="button" role="button">
+            My schedule
+         </button>
     </a>
     <br>
     <br>
-    <a href="" class="button" id="orders">
-        Orders
+    <a href="">
+        <button class="button" role="button">
+            Orders
+        </button>
     </a>
     <br>
     <br>
-    <a href="" class="button" id="feedbacks">
-        Feedbacks
+    <a href="">
+        <button class="button" role="button">
+            Feedbacks
+        </button>
     </a>
-
-
+    <br>
+    <br>
+    <form action="{% url 'logout' %}" method="POST">{% csrf_token %}
+        <input type="submit" value="Logout" class="button">
+    </form>
 
 </body>
 </html>
