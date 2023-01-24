@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 def main(request):
     if request.user.is_superuser:
         return render(request, "administrator_app/main_admin.html")
