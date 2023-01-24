@@ -3,17 +3,40 @@
 {% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>{{ request.first_name }}</title>
+    <title>{{ request.user.first_name }}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'client_app/css/my_profile.css' %}">
 </head>
 <body>
     {% if request.user.is_authenticated %}
-        <div class="info">
-             <div class="">Your id - {{ request.user.id }}</div>
-             <div class="">Your email - {{ request.user.username }}</div>
+        <a href="/">
+            <button class="back-button" role="button">Back</button>
+        </a>
+        <div class="user-info">
+            <p>Your id - {{ request.user.id }}</p>
+             <p>Your email - {{ request.user.username }}</p>
         </div>
+<hr>
+        <a href="">
+           <button class="button" role="button">Your orders</button>
+        </a>
+        <br>
+        <br>
+        <a href="">
+            <button class="button" role="button">
+                Feedbacks
+            </button>
+        </a>
+        <br>
+        <br>
+        <form action="{% url 'logout' %}" method="POST">{% csrf_token %}
+            <button type="submit"  class="button" role="button">Logout</button>
+        </form>
     {% else %}
-        You are not registered !!!
+    <a href="/">
+        <button class="button" role="button" id="error">
+            You are not registered !!!
+        </button>
+    </a>
     {% endif %}
 </body>
 </html>

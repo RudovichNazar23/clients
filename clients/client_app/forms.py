@@ -1,7 +1,14 @@
+from django.shortcuts import render, redirect
+
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+<<<<<<< HEAD
+=======
+from django.core import validators
+from django.contrib.auth import authenticate
+>>>>>>> 3ca1b3cbed2543f70acb0b58b31105c089c3c1fd
 
 
 class RegistrationForm(forms.Form):

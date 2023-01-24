@@ -3,6 +3,8 @@ from django.contrib.auth.views import LogoutView
 from django.views.generic import View
 from django.views.generic.edit import FormView
 from .forms import CreateServiceForm
+from django.shortcuts import render
+from django.contrib.auth.views import LogoutView
 
 
 class CreateServiceView(View):

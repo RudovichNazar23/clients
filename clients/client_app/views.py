@@ -2,10 +2,13 @@ from django.contrib.auth.views import LogoutView
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.views import View
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from .forms import RegistrationForm, LoginForm
 from django.contrib import messages
+<<<<<<< HEAD
+=======
+from django.contrib.auth.views import LogoutView
+>>>>>>> 3ca1b3cbed2543f70acb0b58b31105c089c3c1fd
 
 
 class RegistrationView(View):
@@ -63,6 +66,16 @@ class SignOutView(LogoutView):
 class MyProfileView(View):
     template_name = "client_app/my_profile.html"
 
+<<<<<<< HEAD
+=======
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+class MainPageView(View):
+    template_name = "client_app/for_unreg_users.html"
+
+>>>>>>> 3ca1b3cbed2543f70acb0b58b31105c089c3c1fd
     def get(self, request):
         return render(request, self.template_name)
 

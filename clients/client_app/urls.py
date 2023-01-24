@@ -11,6 +11,10 @@ urlpatterns = [
     path("login", LoginView.as_view(), name="login"),
     path("logout", SignOutView.as_view(), name="logout"),
     path("main", MainPageView.as_view(), name="main")
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3ca1b3cbed2543f70acb0b58b31105c089c3c1fd
 
 ]
 
