@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import SignOutView, CreateServiceView
+from .views import SignOutView, CreateServiceView, CreateWorkScheduleView
 
 
 urlpatterns = [
     path("logout", SignOutView.as_view(), name="logout"),
-    path("create_service", CreateServiceView.as_view(), name="create_service")
+    path("create_service", CreateServiceView.as_view(), name="create_service"),
+    path("create_schedule", CreateWorkScheduleView.as_view(), name="create_schedule"),
 
 
 ]

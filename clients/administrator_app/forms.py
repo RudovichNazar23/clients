@@ -1,5 +1,5 @@
 from django import forms
-from .models import Service
+from .models import Service, WorkSchedule
 from django.core.exceptions import ValidationError
 
 
@@ -42,3 +42,37 @@ class CreateServiceForm(forms.Form):
             )
         return new_service_name
 
+
+class WorkScheduleForm(forms.ModelForm):
+    date = forms.DateField(label="Date", required=True, widget=forms.SelectDateWidget())
+
+    class Meta:
+        model = WorkSchedule
+        fields = ["worker", "time_from", "time_to"]
+
+    def save_data(self):
+        worker = self.cleaned_data.get("worker")
+        date = self.cleaned_data.get("date")
+        time_from = self.cleaned_data.get("time_from")
+        time_to = self.cleaned_data.get("time_to")
+
+        schedule = WorkSchedule(
+            worker=worker,
+            date=date,
+            time_from=time_from,
+            time_to=time_to
+        ).save()
+
+        return schedule
+
+
+"""    
+    def clean_time_to(self):
+        time_from = self.cleaned_data.get("time_from")
+        time_to = self.cleaned_data.get("time_to")
+
+        if time_from == time_to:
+            raise ValidationError(
+                "No"
+            )
+        return time_to"""
