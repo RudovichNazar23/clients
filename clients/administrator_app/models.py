@@ -1,6 +1,7 @@
 from django.db import models
 from worker_app.models import Worker
 from django.utils.deconstruct import deconstructible
+from django.core.exceptions import ValidationError
 
 
 class Service(models.Model):
@@ -49,6 +50,8 @@ class WorkSchedule(models.Model):
     )
     worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
     date = models.DateField()
-    time_from = models.CharField(choices=TIME_CHOICES, default="8:00", max_length=100)
+    time_from = models.CharField(choices=TIME_CHOICES, max_length=100)
     time_to = models.CharField(choices=TIME_CHOICES, max_length=100)
 
+    def __str__(self):
+        return f"{self.worker} : {self.date}"
