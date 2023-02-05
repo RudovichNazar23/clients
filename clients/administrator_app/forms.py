@@ -44,7 +44,7 @@ class CreateServiceForm(forms.Form):
 
 
 class WorkScheduleForm(forms.ModelForm):
-    date = forms.DateField(label="Date", required=True, widget=forms.SelectDateWidget())
+    date = forms.DateField(label="Date", required=True, widget=forms.SelectDateWidget(attrs={"class": "special"}))
 
     class Meta:
         model = WorkSchedule
@@ -65,8 +65,6 @@ class WorkScheduleForm(forms.ModelForm):
 
         return schedule
 
-
-"""    
     def clean_time_to(self):
         time_from = self.cleaned_data.get("time_from")
         time_to = self.cleaned_data.get("time_to")
@@ -75,4 +73,23 @@ class WorkScheduleForm(forms.ModelForm):
             raise ValidationError(
                 "No"
             )
-        return time_to"""
+        elif int(time_to[:time_to.find(":")]) < int(time_from[:time_from.find(":")]):
+            raise ValidationError(
+                "time_from > time_to"
+            )
+        elif int(time_to[:time_to.find(":")]) == int(time_from[:time_from.find(":")]):
+            if int(time_to[time_to.find(":") + 1:]) < int(time_from[time_from.find(":") + 1:]):
+                raise ValidationError(
+                    "Time_from > Time_to !!!"
+                )
+        return time_to
+
+    def clean_date(self):
+        worker = self.cleaned_data.get("worker")
+        date = self.cleaned_data.get("date")
+
+        if WorkSchedule.objects.filter(worker=worker, date=date):
+            raise ValidationError(
+                f"This schedule for {worker} on this day already exists"
+            )
+        return date
