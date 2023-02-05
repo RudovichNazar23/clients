@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.views import LogoutView
 from django.views.generic.edit import FormView
-from .forms import CreateServiceForm, Create_Work_Schedule_Form
+from .forms import CreateServiceForm, WorkScheduleForm
 
 
 class CreateServiceView(FormView):
@@ -16,7 +16,7 @@ class CreateServiceView(FormView):
 
 class CreateWorkScheduleView(FormView):
     template_name = "administrator_app/create_schedule.html"
-    form_class = Create_Work_Schedule_Form
+    form_class = WorkScheduleForm
     success_url = "/"
 
     def form_valid(self, form):
