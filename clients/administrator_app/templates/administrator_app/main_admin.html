@@ -7,38 +7,21 @@
     <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/main_admin.css' %}">
 </head>
 <body>
+
     <p class="welcome"> Welcome {{ request.user.first_name }}</p>
-    <a href="admin">
-        <button class="button" role="button">
-            Admin Panel
-        </button>
-    </a>
-<hr>
-    <a href="create_service">
-        <button class="button" role="button">
-            Create Service
-        </button>
-    </a>
-    <br>
-    <br>
-    <a href="create_schedule">
-        <button class="button" role="button">
-            Create Schedule
-        </button>
-    </a>
-    <br>
-    <br>
-    <a href="">
-        <button class="button" role="button">
-            Worker List
-        </button>
-    </a>
-    <br>
-    <br>
-    <form action="{% url 'logout' %}" method="POST">{% csrf_token %}
-        <button type="submit" class="button" role="button">
-            Logout
-        </button>
-    </form>
+
+    <ul>
+          <li><a href="admin">Admin Panel</a></li>
+          <li><a href="create_service">Create Service</a></li>
+          <li><a href="create_schedule"> Create Schedule </a></li>
+          <li><a href="">Worker List</a></li>
+<!--       <li style="float:right">
+                  <form action="{% url 'logout' %}" method="POST">{% csrf_token %}
+                      <button type="submit" class="active">
+                          Logout
+                      </button>
+                  </form>
+          </li> -->
+    </ul>
 </body>
 </html>
