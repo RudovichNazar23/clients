@@ -14,21 +14,11 @@
 </head>
 <body>
     {% if request.user.is_authenticated %}
-        <h3 class="welcome">
-            Welcome {{ request.user.first_name }}
-        </h3>
-            <a href="my_profile">
-                <button class="button1" role="button">
-                    My profile
-                </button>
-            </a>
-            <br>
-            <br>
-            <a href="">
-                <button class="button1" role="button">
-                    Order a service
-                </button>
-            </a>
+        <ul>
+            <li> <a href="my_profile"> My profile </a> </li>
+            <li><a href=""> Order service </a></li>
+        </ul>
+
     {% else %}
             <p class="hello">
                 Hello, nice to meet you on our page!
