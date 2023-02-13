@@ -55,7 +55,7 @@ class LoginView(View):
 
 
 class SignOutView(LogoutView):
-    template_name = "client_app/my_profile.html"
+    template_name = "client_app/logout.html"
     next_page = "/"
 
 
