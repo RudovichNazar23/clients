@@ -56,47 +56,36 @@
 }
 
 .user-info {
-    height: 200px;
+    height: 100px;
     width: 400px;
     margin: auto;
     margin-top: 30px;
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
-.button {
-  background-color: initial;
-  background-image: linear-gradient(-180deg, #00D775, #00BD68);
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
-  height: 44px;
-  line-height: 44px;
-  outline: 0;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  padding: 0 20px;
-  pointer-events: auto;
-  position: relative;
+  background-color: #34568B;
+  position: -webkit-sticky; 
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
   text-align: center;
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: top;
-  white-space: nowrap;
-  width: 105px;
-  z-index: 9;
-  border: 0;
+  padding: 14px 16px;
+  text-decoration: none;
 }
 
-.button:hover {
-  background: #00bd68;
-}
-
-#error {
-    width: 200px;
-    height: auto;
-    margin: auto;
-    background-color: red;
+li a:hover {
+  background-color: #111;
 }

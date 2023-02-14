@@ -16,21 +16,12 @@
              <p>Your email - {{ request.user.username }}</p>
         </div>
 <hr>
-        <a href="">
-           <button class="button" role="button">Your orders</button>
-        </a>
-        <br>
-        <br>
-        <a href="">
-            <button class="button" role="button">
-                Feedbacks
-            </button>
-        </a>
-        <br>
-        <br>
-        <form action="{% url 'logout' %}" method="POST">{% csrf_token %}
-            <button type="submit"  class="button" role="button">Logout</button>
-        </form>
+        <ul>
+            <li>  <a> Your orders </a>  </li>
+            <li>  <a> Feedbacks </a>  </li>
+            <li style="float: right;">  <a href="logout"> Logout </a>  </li>
+        </ul>
+
     {% else %}
     <a href="/">
         <button class="button" role="button" id="error">
