@@ -71,16 +71,16 @@ class WorkScheduleForm(forms.ModelForm):
 
         if time_from == time_to:
             raise ValidationError(
-                "No"
+                f"You cannot create schedule like this: {time_from} - {time_to}"
             )
         elif int(time_to[:time_to.find(":")]) < int(time_from[:time_from.find(":")]):
             raise ValidationError(
-                "time_from > time_to"
+                f"{time_from} - {time_to} is invalid period"
             )
         elif int(time_to[:time_to.find(":")]) == int(time_from[:time_from.find(":")]):
             if int(time_to[time_to.find(":") + 1:]) < int(time_from[time_from.find(":") + 1:]):
                 raise ValidationError(
-                    "Time_from > Time_to !!!"
+                    f"{time_from} - {time_to} is invalid period"
                 )
         return time_to
 
