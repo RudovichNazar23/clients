@@ -1,16 +1,6 @@
 from django.db import models
 from worker_app.models import Worker
 from django.utils.deconstruct import deconstructible
-from django.core.exceptions import ValidationError
-
-
-class Service(models.Model):
-    service_name = models.CharField(max_length=100)
-    description = models.TextField()
-    price = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.service_name}"
 
 
 @deconstructible
@@ -31,8 +21,17 @@ class WorkTime:
         self._ordered = True
 
 
+class Service(models.Model):
+    service_name = models.CharField(max_length=100)
+    description = models.TextField()
+    price = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.service_name}"
+
+
 class WorkSchedule(models.Model):
-    TIME_CHOICES = (
+    TIME_CHOICES = [
         ("8:00", WorkTime("8:00").time),
         ("8:45", WorkTime("8:45").time),
         ("9:30", WorkTime("9:30").time),
@@ -47,11 +46,12 @@ class WorkSchedule(models.Model):
         ("16:15", WorkTime("16:15").time),
         ("17:00", WorkTime("17:00").time),
         ("17:30", WorkTime("17:30").time)
-    )
+    ]
+
     worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
     date = models.DateField()
     time_from = models.CharField(choices=TIME_CHOICES, max_length=100)
     time_to = models.CharField(choices=TIME_CHOICES, max_length=100)
 
     def __str__(self):
-        return f"{self.worker} : {self.date}"
+        return f"{self.date}"
