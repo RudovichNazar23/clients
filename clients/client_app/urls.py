@@ -12,7 +12,6 @@ urlpatterns = [
     path("logout", SignOutView.as_view(), name="logout"),
     path("main", MainPageView.as_view(), name="main")
 
-
 ]
 
 if settings.DEBUG:
