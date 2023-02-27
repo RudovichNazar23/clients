@@ -1,6 +1,9 @@
+* {
+    font-family: "Verdana", "sans-serif";
+}
+
 .welcome {
     text-align: center;
-    font-family: "Lucida Console", "Courier New", monospace;
 }
 
 body {
@@ -44,7 +47,6 @@ li button {
 
 .hello {
     text-align: center;
-    font-family: "Lucida Console", "Courier New", monospace;
 }
 
 .buttons {

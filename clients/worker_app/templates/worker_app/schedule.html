@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Your schedule</title>
+    <link rel="stylesheet"  type="text/css" href="{% static 'worker_app/css/schedule.css' %}">
+</head>
+<body>
+    <p>Your schedule:</p>
+        <ul>
+            {% for date in dates %}
+                    <li>
+                        <p><a href="{% url 'time' date %}">{{ date }}</a></p>
+                    </li>
+            {% endfor %}
+        </ul>
+</body>
+</html>
