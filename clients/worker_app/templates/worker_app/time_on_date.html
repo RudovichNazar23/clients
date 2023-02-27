@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    {% for var in time %}
+       <p> When you should start your job - {{ var.time_from }} </p>
+       <p> When you should finish your job - {{ var.time_to }} </p>
+    {% endfor %}
+</body>
+</html>
