@@ -81,7 +81,8 @@ class WorkScheduleForm(forms.ModelForm):
                 if time2 == elem[0]:
                     time_to = elem
                     ind2 = WorkSchedule.TIME_CHOICES.index(time_to)
-        return WorkSchedule.TIME_CHOICES[ind1:ind2]
+        WorkSchedule.TIME_CHOICES = WorkSchedule.TIME_CHOICES[ind1:ind2]
+        return WorkSchedule.TIME_CHOICES
 
     def clean_time_to(self):
         time_from = self.cleaned_data.get("time_from")

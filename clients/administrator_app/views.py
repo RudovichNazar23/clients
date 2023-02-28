@@ -21,6 +21,7 @@ class CreateWorkScheduleView(FormView):
 
     def form_valid(self, form):
         form.save_data()
+        form.create_time_range()
         return super().form_valid(form)
 
 
