@@ -20,8 +20,8 @@ class CreateWorkScheduleView(FormView):
     success_url = "/"
 
     def form_valid(self, form):
-        form.save_data()
         form.create_time_range()
+        form.save_data()
         return super().form_valid(form)
 
 

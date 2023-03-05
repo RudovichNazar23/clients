@@ -55,12 +55,14 @@ class WorkScheduleForm(forms.ModelForm):
         date = self.cleaned_data.get("date")
         time_from = self.cleaned_data.get("time_from")
         time_to = self.cleaned_data.get("time_to")
+        test = self.create_time_range()
 
         schedule = WorkSchedule(
             worker=worker,
             date=date,
             time_from=time_from,
-            time_to=time_to
+            time_to=time_to,
+            test=test
         ).save()
 
         return schedule
@@ -81,8 +83,8 @@ class WorkScheduleForm(forms.ModelForm):
                 if time2 == elem[0]:
                     time_to = elem
                     ind2 = WorkSchedule.TIME_CHOICES.index(time_to)
-        WorkSchedule.TIME_CHOICES = WorkSchedule.TIME_CHOICES[ind1:ind2]
-        return WorkSchedule.TIME_CHOICES
+        time_range = WorkSchedule.TIME_CHOICES[ind1:ind2]
+        return time_range
 
     def clean_time_to(self):
         time_from = self.cleaned_data.get("time_from")

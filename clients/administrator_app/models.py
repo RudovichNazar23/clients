@@ -5,7 +5,6 @@ from django.utils.deconstruct import deconstructible
 
 @deconstructible
 class WorkTime:
-    __TIME_FORMAT = "hours:minutes"
 
     def __init__(self, time, *args, **kwargs):
         super().__init__()
@@ -52,6 +51,22 @@ class WorkSchedule(models.Model):
     date = models.DateField()
     time_from = models.CharField(choices=TIME_CHOICES, max_length=100)
     time_to = models.CharField(choices=TIME_CHOICES, max_length=100)
+    test = models.CharField(max_length=500, null=True)
 
     def __str__(self):
         return f"{self.date}"
+
+
+@deconstructible
+class TimeRange:
+    def __init__(self, time_range):
+        self._time_range = time_range
+
+    @property
+    def time_range(self):
+        return self._time_range
+
+    @time_range.setter
+    def time_range(self, value):
+        self._time_range = value
+
