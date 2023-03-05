@@ -22,4 +22,6 @@ class WorkTimeOnDateView(View):
 
     def get(self, request, date):
         time = WorkSchedule.objects.filter(date=date)
-        return render(request, self.template_name, {"time": time})
+        return render(request, self.template_name, {"time": time,
+                                                    }
+                      )

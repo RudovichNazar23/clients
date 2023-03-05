@@ -5,15 +5,10 @@
     <title></title>
 </head>
 <body>
-    {% for var in time %}
+{% for var in time %}
        <p> When you should start your job - {{ var.time_from }} </p>
        <p> When you should finish your job - {{ var.time_to }} </p>
-        {% for i in var.TIME_CHOICES %}
-            {% for x in i %}
-                {{ x }}
-            {% endfor %}
-        {% endfor %}
-       <!-- {{ var.TIME_CHOICES }} -->
-    {% endfor %}
+        {{ var.test }}
+{% endfor %}
 </body>
 </html>
