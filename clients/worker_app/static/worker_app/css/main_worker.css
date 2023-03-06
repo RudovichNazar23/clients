@@ -1,5 +1,9 @@
+* {
+    font-family: "Verdana", sans-serif;
+}
+
 body {
-    font-size: 25px;
+  font-size: 23px;
 }
 
 ul {

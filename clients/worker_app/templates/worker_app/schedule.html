@@ -7,13 +7,15 @@
     <link rel="stylesheet"  type="text/css" href="{% static 'worker_app/css/schedule.css' %}">
 </head>
 <body>
-    <p>Your schedule:</p>
+<p>Your schedule:</p>
+<div class="container">
         <ul>
             {% for date in dates %}
                     <li>
-                        <p><a href="{% url 'time' date %}">{{ date }}</a></p>
+                        <a href="{% url 'time' date %}">{{ date }}</a>
                     </li>
             {% endfor %}
         </ul>
+</div>
 </body>
 </html>

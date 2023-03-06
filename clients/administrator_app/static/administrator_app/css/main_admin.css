@@ -1,10 +1,13 @@
+* {
+    font-family: "Verdana", sans-serif;
+}
+
 .welcome {
     text-align: center;
-    font-family: "Lucida Console", "Courier New", monospace;
 }
 
 body {
-  font-size: 25px;
+  font-size: 23px;
 }
 
 ul {
