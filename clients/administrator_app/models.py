@@ -55,18 +55,3 @@ class WorkSchedule(models.Model):
 
     def __str__(self):
         return f"{self.date}"
-
-
-@deconstructible
-class TimeRange:
-    def __init__(self, time_range):
-        self._time_range = time_range
-
-    @property
-    def time_range(self):
-        return self._time_range
-
-    @time_range.setter
-    def time_range(self, value):
-        self._time_range = value
-

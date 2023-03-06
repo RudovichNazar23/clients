@@ -55,7 +55,7 @@ class WorkScheduleForm(forms.ModelForm):
         date = self.cleaned_data.get("date")
         time_from = self.cleaned_data.get("time_from")
         time_to = self.cleaned_data.get("time_to")
-        test = self.create_time_range()
+        test = self.make_list(self.create_time_range())
 
         schedule = WorkSchedule(
             worker=worker,
@@ -85,6 +85,13 @@ class WorkScheduleForm(forms.ModelForm):
                     ind2 = WorkSchedule.TIME_CHOICES.index(time_to)
         time_range = WorkSchedule.TIME_CHOICES[ind1:ind2]
         return time_range
+
+    @staticmethod
+    def make_list(time_range):
+        lst = []
+        for time in time_range:
+            lst.append(time[1])
+        return lst
 
     def clean_time_to(self):
         time_from = self.cleaned_data.get("time_from")
