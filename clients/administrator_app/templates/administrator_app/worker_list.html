@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Workers</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/worker_list.css' %}">
+</head>
+<body>
+  <ul>
+      {% for worker in workers %}
+          <li><a href="{% url 'worker' worker.first_name %}">{{ worker.first_name }}</a></li>
+      {% endfor %}
+  </ul>
+</body>
+</html>
