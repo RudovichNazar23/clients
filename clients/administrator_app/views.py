@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.views import LogoutView
 from django.views.generic.edit import FormView
 from .forms import CreateServiceForm, WorkScheduleForm
+from django.views.generic.list import ListView
+from django.views import View
+from worker_app.models import Worker
 
 
 class CreateServiceView(FormView):
@@ -23,6 +26,20 @@ class CreateWorkScheduleView(FormView):
         form.create_time_range()
         form.save_data()
         return super().form_valid(form)
+
+
+class WorkerListView(ListView):
+    template_name = "administrator_app/worker_list.html"
+    model = Worker
+    context_object_name = "workers"
+
+
+class WorkerProfileView(View):
+    template_name = "administrator_app/worker_profile.html"
+
+    def get(self, request, first_name):
+        worker = Worker.objects.filter(first_name=first_name)
+        return render(request, self.template_name, {"worker": worker})
 
 
 class SignOutView(LogoutView):
