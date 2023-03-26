@@ -9,14 +9,14 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('administrator_app', '0001_initial'),
         ('worker_app', '0001_initial'),
-        ('client_app', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='order',
+            model_name='workschedule',
             name='worker',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='Worker', to='worker_app.worker'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='worker_app.worker'),
         ),
     ]

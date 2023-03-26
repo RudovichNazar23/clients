@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.views import LogoutView
 from django.views.generic.edit import FormView
-from .forms import CreateServiceForm, WorkScheduleForm
+from .forms import CreateServiceForm
 from django.views.generic.list import ListView
 from django.views import View
 from worker_app.models import Worker
@@ -17,15 +17,7 @@ class CreateServiceView(FormView):
         return super().form_valid(form)
 
 
-class CreateWorkScheduleView(FormView):
-    template_name = "administrator_app/create_schedule.html"
-    form_class = WorkScheduleForm
-    success_url = "/"
 
-    def form_valid(self, form):
-        form.create_time_range()
-        form.save_data()
-        return super().form_valid(form)
 
 
 class WorkerListView(ListView):
