@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.views import LogoutView
-from .forms import CreateServiceForm, CreateWorkDayForm
+from .forms import CreateServiceForm, CreateWorkDayForm, CreateAssignmentForm
 from django.views.generic.list import ListView
 from django.views import View
 from django.views.generic.edit import FormView
 from worker_app.models import Worker
+from django.contrib import messages
 
 
 class CreateServiceView(FormView):
@@ -20,10 +21,21 @@ class CreateServiceView(FormView):
 class CreateWorkDayView(FormView):
     template_name = "administrator_app/create_workday.html"
     form_class = CreateWorkDayForm
-    success_url = None
+    success_url = "create_assignment"
 
     def form_valid(self, form):
-        pass
+        form.save()
+        return super().form_valid(form)
+
+
+class CreateWorkdayAssignment(FormView):
+    template_name = "administrator_app/create_assignment.html"
+    form_class = CreateAssignmentForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
 class WorkerListView(ListView):
