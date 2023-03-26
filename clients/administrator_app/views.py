@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.views import LogoutView
-from django.views.generic.edit import FormView
-from .forms import CreateServiceForm
+from .forms import CreateServiceForm, CreateWorkDayForm
 from django.views.generic.list import ListView
 from django.views import View
+from django.views.generic.edit import FormView
 from worker_app.models import Worker
 
 
@@ -17,7 +17,13 @@ class CreateServiceView(FormView):
         return super().form_valid(form)
 
 
+class CreateWorkDayView(FormView):
+    template_name = "administrator_app/create_workday.html"
+    form_class = CreateWorkDayForm
+    success_url = None
 
+    def form_valid(self, form):
+        pass
 
 
 class WorkerListView(ListView):
