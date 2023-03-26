@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/create_workday.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/create_assignment.css' %}">
 </head>
 <body>
     <div class="form-container">
-        <form action="{% url 'create_workday' %}" method="POST">{% csrf_token %}
+        <form action="{% url 'create_assignment' %}" method="POST">{% csrf_token %}
             {% for field in form %}
                 <label class="">{{ field.label_tag }}</label>
                 {{ field }}

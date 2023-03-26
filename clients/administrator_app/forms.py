@@ -1,5 +1,5 @@
 from django import forms
-from .models import Service, WorkDay
+from .models import Service, WorkDay, WorkDayAssignment
 from django.core.exceptions import ValidationError
 
 
@@ -45,3 +45,29 @@ class CreateServiceForm(forms.Form):
 
 class CreateWorkDayForm(forms.Form):
     date = forms.DateField(widget=forms.SelectDateWidget(attrs={"class": "special"}))
+
+    def save(self):
+        date = self.cleaned_data.get("date")
+        workday = WorkDay(
+            date=date
+        )
+
+        return workday.save()
+
+
+class CreateAssignmentForm(forms.ModelForm):
+    class Meta:
+        model = WorkDayAssignment
+        fields = ("workday", "worker")
+
+    def save(self, commit=True):
+        workday = self.cleaned_data.get("workday")
+        worker = self.cleaned_data.get("worker")
+
+        assignment = WorkDayAssignment(
+            workday=workday,
+            worker=worker
+        )
+
+        return assignment.save()
+
