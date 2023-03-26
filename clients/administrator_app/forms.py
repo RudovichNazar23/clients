@@ -1,5 +1,5 @@
 from django import forms
-from .models import Service, WorkSchedule
+from .models import Service
 from django.core.exceptions import ValidationError
 
 
@@ -41,83 +41,3 @@ class CreateServiceForm(forms.Form):
                 "Service with this name already exists"
             )
         return new_service_name
-
-
-class WorkScheduleForm(forms.ModelForm):
-    date = forms.DateField(label="Date", required=True, widget=forms.SelectDateWidget(attrs={"class": "special"}))
-
-    class Meta:
-        model = WorkSchedule
-        fields = ["worker", "time_from", "time_to"]
-
-    def save_data(self):
-        worker = self.cleaned_data.get("worker")
-        date = self.cleaned_data.get("date")
-        time_from = self.cleaned_data.get("time_from")
-        time_to = self.cleaned_data.get("time_to")
-        test = self.make_list(self.create_time_range())
-
-        schedule = WorkSchedule(
-            worker=worker,
-            date=date,
-            time_from=time_from,
-            time_to=time_to,
-            test=test
-        ).save()
-
-        return schedule
-
-    def create_time_range(self):
-        time_from = self.cleaned_data.get("time_from")
-        time_to = self.cleaned_data.get("time_to")
-
-        for elem in WorkSchedule.TIME_CHOICES:
-            for time1 in elem:
-                time1 = time_from
-                if time1 == elem[0]:
-                    time_from = elem
-                    ind1 = WorkSchedule.TIME_CHOICES.index(time_from)
-
-            for time2 in elem:
-                time2 = time_to
-                if time2 == elem[0]:
-                    time_to = elem
-                    ind2 = WorkSchedule.TIME_CHOICES.index(time_to)
-        time_range = WorkSchedule.TIME_CHOICES[ind1:ind2]
-        return time_range
-
-    @staticmethod
-    def make_list(time_range):
-        lst = []
-        for time in time_range:
-            lst.append(time[1])
-        return lst
-
-    def clean_time_to(self):
-        time_from = self.cleaned_data.get("time_from")
-        time_to = self.cleaned_data.get("time_to")
-
-        if time_from == time_to:
-            raise ValidationError(
-                f"You cannot create schedule like this: {time_from} - {time_to}"
-            )
-        elif int(time_to[:time_to.find(":")]) < int(time_from[:time_from.find(":")]):
-            raise ValidationError(
-                f"{time_from} - {time_to} is invalid period"
-            )
-        elif int(time_to[:time_to.find(":")]) == int(time_from[:time_from.find(":")]):
-            if int(time_to[time_to.find(":") + 1:]) < int(time_from[time_from.find(":") + 1:]):
-                raise ValidationError(
-                    f"{time_from} - {time_to} is invalid period"
-                )
-        return time_to
-
-    def clean_date(self):
-        worker = self.cleaned_data.get("worker")
-        date = self.cleaned_data.get("date")
-
-        if WorkSchedule.objects.filter(worker=worker, date=date):
-            raise ValidationError(
-                f"This schedule for {worker} on this day already exists"
-            )
-        return date

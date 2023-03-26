@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from worker_app.models import Worker
-from administrator_app.models import Service, WorkSchedule
+from administrator_app.models import Service, WorkDayAssignment
 
 
 class NotRegisteredUser(models.Model):
@@ -16,10 +16,9 @@ class NotRegisteredUser(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, related_name="Worker")
+    worker_and_date = models.ForeignKey(WorkDayAssignment, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    date = models.DateField()
-    time = models.TimeField(verbose_name="Time of service", choices=WorkSchedule.TIME_CHOICES)
+    time = models.CharField(verbose_name="Time of service", max_length=100)
 
     def __str__(self):
         return f"{self.user}"
