@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/create_workday.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <form action="" method="POST">{% csrf_token %}
+            {% for field in form %}
+                <label class="">{{ field.label_tag }}</label>
+                {{ field }}
+                <div style="color: red;">{{ field.errors }}</div>
+            {% endfor %}
+            <input type="submit" value="Create">
+        </form>
+    </div>
+</body>
+</html>

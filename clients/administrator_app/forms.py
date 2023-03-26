@@ -1,5 +1,5 @@
 from django import forms
-from .models import Service
+from .models import Service, WorkDay
 from django.core.exceptions import ValidationError
 
 
@@ -41,3 +41,7 @@ class CreateServiceForm(forms.Form):
                 "Service with this name already exists"
             )
         return new_service_name
+
+
+class CreateWorkDayForm(forms.Form):
+    date = forms.DateField(widget=forms.SelectDateWidget(attrs={"class": "special"}))
