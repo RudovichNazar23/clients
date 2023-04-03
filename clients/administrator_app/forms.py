@@ -79,3 +79,12 @@ class CreateAssignmentForm(forms.ModelForm):
 
         return assignment.save()
 
+    def clean(self):
+        worker = self.cleaned_data.get("worker")
+        workday = self.cleaned_data.get("workday")
+
+        assignment = WorkDayAssignment.objects.filter(worker=worker, workday=workday).exists()
+        if assignment:
+            self.add_error("worker", f"Workday for {worker} already exists")
+
+
