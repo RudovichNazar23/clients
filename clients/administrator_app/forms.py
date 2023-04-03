@@ -54,6 +54,14 @@ class CreateWorkDayForm(forms.Form):
 
         return workday.save()
 
+    def clean_date(self):
+        date = self.cleaned_data.get("date")
+        if WorkDay.objects.filter(date=date):
+            raise ValidationError(
+                "This date already exists"
+            )
+        return date
+
 
 class CreateAssignmentForm(forms.ModelForm):
     class Meta:
