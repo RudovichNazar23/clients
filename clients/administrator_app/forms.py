@@ -1,6 +1,7 @@
 from django import forms
 from .models import Service, WorkDay, WorkDayAssignment
 from django.core.exceptions import ValidationError
+import datetime
 
 
 class CreateServiceForm(forms.Form):
@@ -59,6 +60,10 @@ class CreateWorkDayForm(forms.Form):
         if WorkDay.objects.filter(date=date):
             raise ValidationError(
                 "This date already exists"
+            )
+        elif date < datetime.date.today():
+            raise ValidationError(
+                "The selected workday is in the past. Please choose the future date"
             )
         return date
 
