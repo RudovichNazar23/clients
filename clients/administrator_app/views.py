@@ -5,7 +5,8 @@ from django.views.generic.list import ListView
 from django.views import View
 from django.views.generic.edit import FormView
 from worker_app.models import Worker
-from django.contrib import messages
+from .models import WorkDay
+import datetime
 
 
 class CreateServiceView(FormView):
@@ -23,9 +24,19 @@ class CreateWorkDayView(FormView):
     form_class = CreateWorkDayForm
     success_url = "create_assignment"
 
+    def get(self, request, *args, **kwargs):
+        self.clean_dates()
+        return render(request, self.template_name, {"form": self.form_class})
+
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+    def clean_dates(self):
+        today = datetime.date.today()
+        for date in WorkDay.objects.all():
+            if date.date < today:
+                WorkDay.objects.filter(date=str(date)).delete()
 
 
 class CreateWorkdayAssignment(FormView):

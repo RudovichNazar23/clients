@@ -2,11 +2,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.urls import path
-from .main import main
+from .main import Main
 
 
 urlpatterns = [
-    path("", main, name="main")
+    path("", Main.as_view(), name="main")
 
 ]
 
