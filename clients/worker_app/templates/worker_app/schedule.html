@@ -10,9 +10,9 @@
 <p>Your schedule:</p>
 <div class="container">
         <ul>
-            {% for date in dates %}
+            {% for assignment in assignments %}
                     <li>
-                        <a href="{% url 'time' date %}">{{ date }}</a>
+                        <a>{{ assignment.workday }}</a>
                     </li>
             {% endfor %}
         </ul>
