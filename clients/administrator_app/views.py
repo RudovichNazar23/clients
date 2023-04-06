@@ -53,6 +53,7 @@ class WorkerListView(ListView):
     template_name = "administrator_app/worker_list.html"
     model = Worker
     context_object_name = "workers"
+    ordering = "id"
 
 
 class WorkerProfileView(View):
