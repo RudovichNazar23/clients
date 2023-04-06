@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate
 from .forms import RegistrationForm, LoginForm
 from django.contrib import messages
 from django.contrib.auth.views import LogoutView
+from worker_app.models import Worker
+from administrator_app.models import Service
 
 
 class RegistrationView(View):
@@ -71,3 +73,19 @@ class MainPageView(View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+
+class WorkerProfileView(View):
+    template_name = "client_app/worker_info.html"
+
+    def get(self, request, first_name):
+        worker = Worker.objects.filter(first_name=first_name)
+        return render(request, self.template_name, {"worker": worker})
+
+
+class ServiceProfileView(View):
+    template_name = "client_app/service.html"
+
+    def get(self, request, name):
+        service = Service.objects.filter(name=name)
+        return render(request, self.template_name, {"service": service})

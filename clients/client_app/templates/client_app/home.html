@@ -14,10 +14,39 @@
 </head>
 <body>
     {% if request.user.is_authenticated %}
-        <ul>
-            <li> <a href="my_profile"> My profile </a> </li>
-            <li><a> Order service </a></li>
+        <div class="hello">
+            <h2>
+                Welcome {{ request.user.first_name }}
+            </h2>
+        </div>
+        <ul class="nav-bar">
+            <li class="nav-elem"> <a href="my_profile"> My profile </a> </li>
+            <li class="nav-elem"><a> Order service </a></li>
         </ul>
+        <div class="info">
+            <div class="barbers">
+                Our Barbers
+                <hr>
+                <ul class="info-list">
+                    {% for worker in workers %}
+                        <li class="var">
+                            <p><a href="{% url 'worker_info' worker.first_name %}">{{ worker.first_name }}</a></p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="service">
+                Service
+                <hr>
+                <ul class="info-list">
+                    {% for service in services %}
+                        <li class="var">
+                            <p><a href="{% url 'service_info' service.name %}">{{ service.name }}</a></p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
 
     {% else %}
             <p class="hello">
