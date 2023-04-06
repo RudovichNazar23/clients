@@ -19,6 +19,7 @@ class Order(models.Model):
     worker_and_date = models.ForeignKey(WorkDayAssignment, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     time = models.CharField(verbose_name="Time of service", max_length=100)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.user}"
