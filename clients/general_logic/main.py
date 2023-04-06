@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views import View
+from administrator_app.models import Service
+from worker_app.models import Worker
 
 
 class Main(View):
@@ -9,5 +11,10 @@ class Main(View):
         elif request.user.is_staff:
             return render(request, "worker_app/main_worker.html")
         else:
-            return render(request, "client_app/home.html")
+            workers = Worker.objects.all()
+            services = Service.objects.all()
+            return render(request, "client_app/home.html", {
+                "workers": workers,
+                "services": services
+            })
 
