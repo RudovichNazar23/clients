@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 from django.views import View
 from django.views.generic.edit import FormView
 from worker_app.models import Worker
-from .models import WorkDay
+from .models import WorkDay, WorkDayAssignment
 import datetime
 
 
@@ -61,7 +61,9 @@ class WorkerProfileView(View):
 
     def get(self, request, first_name):
         worker = Worker.objects.filter(first_name=first_name)
-        return render(request, self.template_name, {"worker": worker})
+        worker_assignments = WorkDayAssignment.objects.filter(worker__id__in=worker)
+        return render(request, self.template_name, {"worker": worker,
+                                                    "worker_assignments": worker_assignments})
 
 
 class SignOutView(LogoutView):
