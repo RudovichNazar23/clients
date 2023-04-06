@@ -7,16 +7,36 @@
     <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/worker_profile.css' %}">
 </head>
 <body>
-      {% for info in worker %}
-            <header>
-                <p>Worker name - {{ info.first_name }}</p>
-                <p>Worker id - {{ info.id }}</p>
-            </header>
-      {% endfor %}
+      <div class="header">
+          {% for info in worker %}
+                    <p>Worker name - {{ info.first_name }}</p>
+                    <p>Worker id - {{ info.id }}</p>
+          {% endfor %}
+      </div>
       <ul>
-          <li><a>  Schedule  </a></li>
-          <li><a>  Orders  </a></li>
-          <li><a>  Feedbacks  </a></li>
+          <li><a href="/worker_list"> Back </a></li>
+          <li> <a> Feedbacks  </a> </li>
       </ul>
+      <div class="info">
+              {% if not worker_assignments %}
+                    <p>
+                        There is not any assignment and orders
+                    </p>
+          {% else %}
+                <div class="schedule">
+                    <p>
+                        Assignments
+                    </p>
+                    <hr>
+                    {% for assignment in worker_assignments %}
+                        <p>{{ assignment.workday }}</p>
+                    {% endfor %}
+                </div>
+                <div class="Orders">
+                    Orders
+                    <hr>
+                </div>
+          {% endif %}
+      </div>
 </body>
 </html>
