@@ -14,15 +14,18 @@
 </head>
 <body>
     {% if request.user.is_authenticated %}
-        <div class="hello">
+        <header>
             <h2>
                 Welcome {{ request.user.first_name }}
             </h2>
-        </div>
-        <ul class="nav-bar">
-            <li class="nav-elem"> <a href="my_profile"> My profile </a> </li>
-            <li class="nav-elem"><a> Order service </a></li>
-        </ul>
+        </header>
+        <nav class="nav-bar">
+            <ul>
+                <li class="nav-elem"> <a href="my_profile"> My profile </a> </li>
+                <li class="nav-elem"><a> Order service </a></li>
+                <li class="nav-elem"><a href="logout"> Logout </a></li>
+            </ul>
+        </nav>
         <div class="info">
             <div class="barbers">
                 Our Barbers

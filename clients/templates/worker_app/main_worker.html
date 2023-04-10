@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'worker_app/css/main_worker.css' %}" >
+</head>
+<body>
+
+    <header>
+        <h2>
+            Hello {{ request.user.first_name }}
+        </h2>
+    </header>
+    <nav>
+        <ul>
+            <li> <a href="my_schedule">  My schedule </a></li>
+            <li> <a href="">  Orders </a></li>
+            <li> <a href=""> Feedbacks </a></li>
+            <li style="float: right;"> <a href="logout"> Logout </a></li>
+        </ul>
+    </nav>
+</body>
+</html>

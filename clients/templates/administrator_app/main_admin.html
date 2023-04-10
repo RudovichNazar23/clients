@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{ request.user }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/main_admin.css' %}">
+</head>
+<body>
+	<header>
+		<h1>Welcome {{ request.user.first_name }}</h1>
+	</header>
+	<nav>
+		<ul>
+            <li><a href="admin"> Admin panel </a> </li>
+			<li><a href="create_service">Create Service</a></li>
+			<li><a href="create_workday">Create Workday</a></li>
+			<li><a href="create_assignment">Create assignment</a></li>
+			<li><a href="worker_list">Worker List</a></li>
+			<li><a href="logout">Logout</a></li>
+		</ul>
+	</nav>
+</body>
+</html>
