@@ -7,10 +7,19 @@
     <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/worker_list.css' %}">
 </head>
 <body>
-  <ul>
-      {% for worker in workers %}
-          <li><a href="{% url 'worker' worker.first_name %}">{{ worker.first_name }}</a></li>
-      {% endfor %}
-  </ul>
+    <a href="/" class="home">
+        Home
+    </a>
+
+    <div class="workers">
+        {% for worker in workers %}
+            <div>
+                <a href="{% url 'worker' worker.first_name %}"> <p class="name">{{ worker.first_name }}</p> </a>
+                <hr>
+                <p class="info">Id - {{ worker.id }}</p>
+                <p class="info">Username - {{ worker.username }}</p>
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
