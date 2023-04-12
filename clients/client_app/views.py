@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.views import LogoutView
 from worker_app.models import Worker
 from administrator_app.models import Service
+from .models import Order
 
 
 class RegistrationView(View):
@@ -65,7 +66,10 @@ class MyProfileView(View):
     template_name = "client_app/my_profile.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        active_order = Order.objects.filter(user=request.user, active=True)
+        return render(request, self.template_name, {
+            "active_order": active_order
+        })
 
 
 class MainPageView(View):
