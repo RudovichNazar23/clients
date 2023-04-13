@@ -7,17 +7,18 @@
     <link rel="stylesheet"  type="text/css" href="{% static 'worker_app/css/schedule.css' %}">
 </head>
 <body>
-<div class="container">
+    <a href="/" class="home">
+        Home
+    </a>
+<hr>
     {% if not assignments  %}
         <h2>You don't have any assignments...</h2>
+    {% else %}
+        <div class="container">
+                {% for assignment in assignments %}
+                            <a href="" class="assignment-link">{{ assignment.workday }}</a>
+                {% endfor %}
+         </div>
     {% endif %}
-        <ul>
-            {% for assignment in assignments %}
-                    <li>
-                        <a>{{ assignment.workday }}</a>
-                    </li>
-            {% endfor %}
-        </ul>
-</div>
 </body>
 </html>
