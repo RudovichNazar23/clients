@@ -61,7 +61,7 @@ class CreateWorkDayForm(forms.Form):
             raise ValidationError(
                 "This date already exists"
             )
-        elif date < datetime.date.today():
+        elif date <= datetime.date.today():
             raise ValidationError(
                 "The selected workday is in the past. Please choose the future date"
             )
