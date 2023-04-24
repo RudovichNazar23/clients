@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from .models import Order
 
 
 class RegistrationForm(forms.Form):
@@ -69,3 +70,10 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(attrs={"class": "form-control"}
                                    )
     )
+
+
+class OrderServiceForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ("worker_and_date", "service", "time")
+
