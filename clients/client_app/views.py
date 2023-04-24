@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.views import View
 from django.contrib.auth import login, authenticate
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, OrderServiceForm
 from django.contrib import messages
 from django.contrib.auth.views import LogoutView
+from django.views.generic.edit import FormView
 from worker_app.models import Worker
 from administrator_app.models import Service
 from .models import Order
@@ -93,3 +94,15 @@ class ServiceProfileView(View):
     def get(self, request, name):
         service = Service.objects.filter(name=name)
         return render(request, self.template_name, {"service": service})
+
+
+class OrderServiceView(FormView):
+    template_name = "client_app/order_service.html"
+    form_class = OrderServiceForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        pass
+
+    def form_invalid(self, form):
+        pass

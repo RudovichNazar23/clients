@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.urls import path
-from .views import RegistrationView, MyProfileView, LoginView, SignOutView, MainPageView, WorkerProfileView, ServiceProfileView
+from .views import RegistrationView, MyProfileView, LoginView, SignOutView, MainPageView, WorkerProfileView, ServiceProfileView, OrderServiceView
 
 
 urlpatterns = [
@@ -12,7 +12,8 @@ urlpatterns = [
     path("logout", SignOutView.as_view(), name="logout"),
     path("main", MainPageView.as_view(), name="main"),
     path("worker_info/<str:first_name>", WorkerProfileView.as_view(), name="worker_info"),
-    path("service_info/<str:name>", ServiceProfileView.as_view(), name="service_info")
+    path("service_info/<str:name>", ServiceProfileView.as_view(), name="service_info"),
+    path("order_service", OrderServiceView.as_view(), name="order_service")
 ]
 
 if settings.DEBUG:

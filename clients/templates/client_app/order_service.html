@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Order Service</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'client_app/css/order_service.css' %}">
 </head>
 <body>
-$END$
+    <div class="form-container">
+        <form action="{% url 'order_service' %}" method="POST">{% csrf_token %}
+            {% for field in form %}
+                <label class="">{{ field.label_tag }}</label>
+                {{ field }}
+                <div style="color: red;">{{ field.errors }}</div>
+            {% endfor %}
+            <input type="submit" value="Order">
+        </form>
+    </div>
 </body>
 </html>
