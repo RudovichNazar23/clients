@@ -14,7 +14,6 @@ class Service(models.Model):
 
 class WorkDay(models.Model):
     date = models.DateField()
-    active = models.BooleanField()
 
     def __str__(self):
         return f"{self.date}"
@@ -23,7 +22,6 @@ class WorkDay(models.Model):
 class WorkDayAssignment(models.Model):
     workday = models.ForeignKey(WorkDay, on_delete=models.CASCADE)
     worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.worker} - {self.workday}"
