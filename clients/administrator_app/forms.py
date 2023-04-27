@@ -27,7 +27,7 @@ class CreateServiceForm(forms.Form):
         price = self.cleaned_data.get("price")
 
         service = Service(
-            service_name=service_name,
+            name=service_name,
             description=description,
             price=price
         ).save()
@@ -37,7 +37,7 @@ class CreateServiceForm(forms.Form):
     def clean_service_name(self):
         new_service_name = self.cleaned_data.get("service_name")
 
-        if Service.objects.filter(service_name=new_service_name):
+        if Service.objects.filter(name=new_service_name):
             raise ValidationError(
                 "Service with this name already exists"
             )

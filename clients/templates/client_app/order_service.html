@@ -12,7 +12,6 @@
             {% for field in form %}
                 <label class="">{{ field.label_tag }}</label>
                 {{ field }}
-                <div style="color: red;">{{ field.errors }}</div>
             {% endfor %}
             <input type="submit" value="Order">
         </form>
