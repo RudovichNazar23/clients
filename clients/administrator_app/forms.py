@@ -69,6 +69,13 @@ class CreateWorkDayForm(forms.Form):
 
 
 class CreateAssignmentForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["workday"].choices = [
+            (i, i) for i in WorkDay.objects.all() if i.date > datetime.date.today()
+        ]
+
     class Meta:
         model = WorkDayAssignment
         fields = ("workday", "worker")
