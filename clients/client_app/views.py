@@ -96,13 +96,20 @@ class ServiceProfileView(View):
         return render(request, self.template_name, {"service": service})
 
 
-class OrderServiceView(FormView):
+class OrderServiceView(View):
     template_name = "client_app/order_service.html"
-    form_class = OrderServiceForm
-    success_url = "/"
+    success_url = "order_service"
 
-    def form_valid(self, form):
-        pass
+    def get(self, request):
+        form = OrderServiceForm
+        return render(request, self.template_name, {"form": form})
 
-    def form_invalid(self, form):
-        pass
+    def post(self, request):
+        form = OrderServiceForm(request.POST)
+        if form.is_valid():
+            service = form.cleaned_data.get("service")
+            form.save(request.user)
+            messages.success(request, f"You have ordered {service} successfully !!!")
+            return redirect(self.success_url)
+        return render(request, self.template_name, {"form": form})
+

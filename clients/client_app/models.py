@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from worker_app.models import Worker
 from administrator_app.models import Service, WorkDayAssignment
 from django.utils.deconstruct import deconstructible
 
@@ -13,6 +12,7 @@ class NotRegisteredUser(models.Model):
 
     def __str__(self):
         return f"{self.first_name}"
+
 
 @deconstructible
 class Time(models.Model):

@@ -8,14 +8,12 @@ import datetime
 class Main(View):
     def get(self, request):
         if request.user.is_superuser:
-            self.clean_dates()
             return render(request, "administrator_app/main_admin.html")
         elif request.user.is_staff:
             return render(request, "worker_app/main_worker.html")
         else:
             workers = Worker.objects.all()
             services = Service.objects.all()
-            self.clean_dates()
             return render(request, "client_app/home.html", {
                 "workers": workers,
                 "services": services
