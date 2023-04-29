@@ -16,7 +16,7 @@
     {% else %}
         <div class="container">
                 {% for assignment in assignments %}
-                            <a href="" class="assignment-link">{{ assignment.workday }}</a>
+                            <a href="{% url 'orders' assignment.workday.id %}" class="assignment-link">{{ assignment.workday }}</a>
                 {% endfor %}
          </div>
     {% endif %}

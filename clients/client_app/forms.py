@@ -3,9 +3,8 @@ import datetime
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.forms import Select
 
-from .models import Order, TIME_CHOICES
+from .models import Order, Time
 from administrator_app.models import WorkDayAssignment, Service
 
 
@@ -78,16 +77,18 @@ class LoginForm(forms.Form):
 
 
 class OrderServiceForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["worker_and_date"].choices = [
-            (i, i) for i in WorkDayAssignment.objects.all() if i.workday.date > datetime.date.today()
-        ]
-
     class Meta:
+
         model = Order
         fields = ("worker_and_date", "service", "time")
+        widgets = {
+            "worker_and_date": forms.Select(attrs={"class":
+                                                   "form-select"},
+                                            choices=[
+                (i, i) for i in WorkDayAssignment.objects.all() if i.workday.date > datetime.date.today()
+            ]),
+            "service": forms.Select(),
+        }
 
     def save(self, user):
         worker_and_date = self.cleaned_data.get("worker_and_date")
@@ -101,6 +102,9 @@ class OrderServiceForm(forms.ModelForm):
             time=time,
         )
         return order.save()
+
+
+
 
 
 
