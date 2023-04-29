@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.views import LogoutView
 from django.views.generic.edit import FormView
 from worker_app.models import Worker
-from administrator_app.models import Service
+from administrator_app.models import Service, WorkDayAssignment
 from .models import Order
 
 
@@ -112,4 +112,3 @@ class OrderServiceView(View):
             messages.success(request, f"You have ordered {service} successfully !!!")
             return redirect(self.success_url)
         return render(request, self.template_name, {"form": form})
-
