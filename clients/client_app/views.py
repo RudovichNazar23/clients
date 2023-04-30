@@ -112,3 +112,12 @@ class OrderServiceView(View):
             messages.success(request, f"You have ordered {service} successfully !!!")
             return redirect(self.success_url)
         return render(request, self.template_name, {"form": form})
+
+
+class MyVisitsView(View):
+    template_name = "client_app/my_visits.html"
+
+    def get(self, request):
+        orders = Order.objects.filter(user=request.user, active=False).order_by("-worker_and_date")
+        return render(request, self.template_name, {"orders": orders})
+

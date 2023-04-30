@@ -75,13 +75,7 @@ class CreateAssignmentForm(forms.ModelForm):
         model = WorkDayAssignment
         fields = ("workday", "worker")
         widgets = {
-           "workday": forms.Select(attrs={
-               "class": "form-control"
-           },
-               choices=[
-                   (i, i) for i in WorkDay.objects.all() if i.date > datetime.date.today()
-               ]
-           )
+            "workday": forms.Select(choices=[(i, i) for i in WorkDay.objects.all() if i.date > datetime.date.today()])
         }
 
     def save(self, commit=True):
