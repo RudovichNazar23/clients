@@ -17,7 +17,7 @@
                       <ul>
                         <li><a href="/worker_list" class="link">Back</a></li>
                         <li><a href="" class="link">Feedbacks</a></li>
-                        <li><a href="" class="link">Orders</a></li>
+                        <li><a href="{% url 'worker_schedule' data.first_name %}" class="link">Orders</a></li>
                       </ul>
               </div>
         </div>
@@ -55,7 +55,36 @@
                     </div>
                   </div>
                 </div>
-              </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="d-flex flex-column bd-highlight align-items-center mt-2">
+            {% if not current_orders %}
+                <div class="mt-5"><h2>
+                    {{ data.first_name }} doesn't have any orders today... </h2>
+                </div>
+            {% else %}
+                <table class="table">
+                  <thead>
+                        <tr>
+							<th>Client</th>
+							<th>Service</th>
+							<th>Time</th>
+                        </tr>
+                  </thead>
+                  <tbody>
+                  {% for order in current_orders %}
+                        <tr>
+							<td>{{ order.user }}</td>
+							<td>{{ order.service }}</td>
+							<td>{{ order.time }}</td>
+                        </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+            {% endif %}
+        </div>
+
             </div>
       </div>
     </section>

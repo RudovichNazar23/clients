@@ -1,5 +1,7 @@
 from django import forms
+
 from .models import Service, WorkDay, WorkDayAssignment
+from client_app.models import Order
 from django.core.exceptions import ValidationError
 import datetime
 
@@ -69,16 +71,18 @@ class CreateWorkDayForm(forms.Form):
 
 
 class CreateAssignmentForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["workday"].choices = [
-            (i, i) for i in WorkDay.objects.all() if i.date > datetime.date.today()
-        ]
-
     class Meta:
         model = WorkDayAssignment
         fields = ("workday", "worker")
+        widgets = {
+           "workday": forms.Select(attrs={
+               "class": "form-control"
+           },
+               choices=[
+                   (i, i) for i in WorkDay.objects.all() if i.date > datetime.date.today()
+               ]
+           )
+        }
 
     def save(self, commit=True):
         workday = self.cleaned_data.get("workday")
@@ -99,4 +103,12 @@ class CreateAssignmentForm(forms.ModelForm):
         if assignment:
             self.add_error("worker", f"Workday for {worker} already exists")
 
+
+class DeactivateServiceForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ("active",)
+        widgets = {
+            forms.CheckboxInput()
+        }
 

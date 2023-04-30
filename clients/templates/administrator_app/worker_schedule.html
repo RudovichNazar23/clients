@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/worker_schedule.css' %}">
+</head>
+<body>
+    <a href="/" class="home">
+        Home
+    </a>
+<hr>
+    {% if not assignments  %}
+        <h2>Current worker doesn't have any workdays</h2>
+    {% else %}
+        <div class="container">
+                {% for assignment in assignments %}
+                            <a href="" class="assignment-link">{{ assignment.workday }}</a>
+                {% endfor %}
+         </div>
+    {% endif %}
+</body>
+</html>
