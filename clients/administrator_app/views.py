@@ -1,10 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+import datetime
+
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.views import LogoutView
-from .forms import CreateServiceForm, CreateWorkDayForm, CreateAssignmentForm
+from .forms import CreateServiceForm, CreateWorkDayForm, CreateAssignmentForm, DeactivateServiceForm
 from django.views.generic.list import ListView
 from django.views import View
 from django.views.generic.edit import FormView
 from worker_app.models import Worker
+from client_app.models import Order
 from .models import WorkDay, WorkDayAssignment
 
 
@@ -53,11 +56,36 @@ class WorkerProfileView(View):
 
     def get(self, request, first_name):
         worker = Worker.objects.filter(first_name=first_name)
-        worker_assignments = WorkDayAssignment.objects.filter(worker__id__in=worker)
+        workday = WorkDay.objects.get(date=datetime.date.today())
+        worker_assignments = WorkDayAssignment.objects.filter(worker__id__in=worker, workday=workday)
+        current_orders = Order.objects.filter(worker_and_date__id__in=worker_assignments, active=True)
         return render(request, self.template_name, {"worker": worker,
-                                                    "worker_assignments": worker_assignments})
+                                                    "worker_assignments": worker_assignments,
+                                                    "current_orders": current_orders
+                                                    }
+                      )
+
+
+class WorkerScheduleView(View):
+    template_name = "administrator_app/worker_schedule.html"
+
+    def get(self, request, first_name):
+        worker = Worker.objects.get(first_name=first_name)
+        assignments = WorkDayAssignment.objects.filter(worker=worker.id)
+        return render(request, self.template_name, {"assignments": assignments})
 
 
 class SignOutView(LogoutView):
     template_name = "administrator_app/main_admin.html"
     next_page = "/"
+
+
+class DeactivateOrderView(View):
+    def post(self, request, id: int):
+        order = Order.objects.get(id=id)
+        form = DeactivateServiceForm(request.POST)
+        if form.is_valid():
+            order.active = False
+            order.save()
+            return redirect("/")
+        return redirect("create_workday")
