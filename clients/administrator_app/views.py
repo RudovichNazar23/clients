@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.views import LogoutView
-from .forms import CreateServiceForm, CreateWorkDayForm, CreateAssignmentForm, DeactivateServiceForm
+from .forms import CreateServiceForm, CreateWorkDayForm, CreateAssignmentForm, DeactivateOrderForm
 from django.views.generic.list import ListView
 from django.views import View
 from django.views.generic.edit import FormView
@@ -83,7 +83,7 @@ class SignOutView(LogoutView):
 class DeactivateOrderView(View):
     def post(self, request, id: int):
         order = Order.objects.get(id=id)
-        form = DeactivateServiceForm(request.POST)
+        form = DeactivateOrderForm(request.POST)
         if form.is_valid():
             order.active = False
             order.save()

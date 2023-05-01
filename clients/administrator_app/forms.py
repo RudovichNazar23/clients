@@ -98,7 +98,7 @@ class CreateAssignmentForm(forms.ModelForm):
             self.add_error("worker", f"Workday for {worker} already exists")
 
 
-class DeactivateServiceForm(forms.ModelForm):
+class DeactivateOrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ("active",)

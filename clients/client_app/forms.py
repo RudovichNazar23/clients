@@ -77,31 +77,7 @@ class LoginForm(forms.Form):
 
 
 class OrderServiceForm(forms.ModelForm):
-    class Meta:
-
-        model = Order
-        fields = ("worker_and_date", "service", "time")
-        widgets = {
-            "worker_and_date": forms.Select(attrs={"class":
-                                                   "form-select"},
-                                            choices=[
-                (i, i) for i in WorkDayAssignment.objects.all() if i.workday.date > datetime.date.today()
-            ]),
-            "service": forms.Select(),
-        }
-
-    def save(self, user):
-        worker_and_date = self.cleaned_data.get("worker_and_date")
-        service = self.cleaned_data.get("service")
-        time = self.cleaned_data.get("time")
-
-        order = Order(
-            user=user,
-            worker_and_date=worker_and_date,
-            service=service,
-            time=time,
-        )
-        return order.save()
+    pass
 
 
 

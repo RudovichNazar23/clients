@@ -4,16 +4,6 @@ from administrator_app.models import Service, WorkDayAssignment
 from django.utils.deconstruct import deconstructible
 
 
-class NotRegisteredUser(models.Model):
-    first_name = models.CharField(max_length=100, null=False)
-    last_name = models.CharField(max_length=100, null=False)
-    email = models.EmailField(max_length=50, null=False, unique=True, error_messages={"unique": "Must be unique"})
-    phone_number = models.CharField(max_length=50, null=False, unique=True)
-
-    def __str__(self):
-        return f"{self.first_name}"
-
-
 @deconstructible
 class Time(models.Model):
     def __init__(self, time: str, *args, **kwargs):
@@ -49,8 +39,10 @@ class Order(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.user}"
+        return f"{self.worker_and_date}"
 
 
 class Feedback(models.Model):
-    pass
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    description = models.TextField(default="Hello")
