@@ -8,7 +8,7 @@ from django.contrib.auth.views import LogoutView
 from django.views.generic.edit import FormView
 from worker_app.models import Worker
 from administrator_app.models import Service, WorkDayAssignment
-from .models import Order
+from .models import Order, Feedback
 
 
 class RegistrationView(View):
@@ -73,13 +73,6 @@ class MyProfileView(View):
         })
 
 
-class MainPageView(View):
-    template_name = "client_app/for_unreg_users.html"
-
-    def get(self, request):
-        return render(request, self.template_name)
-
-
 class WorkerProfileView(View):
     template_name = "client_app/worker_info.html"
 
@@ -97,21 +90,7 @@ class ServiceProfileView(View):
 
 
 class OrderServiceView(View):
-    template_name = "client_app/order_service.html"
-    success_url = "order_service"
-
-    def get(self, request):
-        form = OrderServiceForm
-        return render(request, self.template_name, {"form": form})
-
-    def post(self, request):
-        form = OrderServiceForm(request.POST)
-        if form.is_valid():
-            service = form.cleaned_data.get("service")
-            form.save(request.user)
-            messages.success(request, f"You have ordered {service} successfully !!!")
-            return redirect(self.success_url)
-        return render(request, self.template_name, {"form": form})
+    pass
 
 
 class MyVisitsView(View):
@@ -120,4 +99,3 @@ class MyVisitsView(View):
     def get(self, request):
         orders = Order.objects.filter(user=request.user, active=False).order_by("-worker_and_date")
         return render(request, self.template_name, {"orders": orders})
-
