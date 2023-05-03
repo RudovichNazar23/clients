@@ -36,13 +36,14 @@ class Order(models.Model):
     worker_and_date = models.ForeignKey(WorkDayAssignment, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     time = models.CharField(verbose_name="Time of service", max_length=100, choices=TIME_CHOICES)
+    has_feedback = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.worker_and_date}"
+        return f"{self.user} - {self.worker_and_date}"
 
 
 class Feedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
-    description = models.TextField(default="Hello")
+    description = models.TextField(default="")

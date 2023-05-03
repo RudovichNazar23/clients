@@ -16,7 +16,7 @@
               <div class="col">
                       <ul>
                         <li><a href="/worker_list" class="link">Back</a></li>
-                        <li><a href="" class="link">Feedbacks</a></li>
+                        <li><a href="{% url 'worker_feedbacks' data.first_name %}" class="link">Feedbacks</a></li>
                         <li><a href="{% url 'worker_schedule' data.first_name %}" class="link">Orders</a></li>
                       </ul>
               </div>
