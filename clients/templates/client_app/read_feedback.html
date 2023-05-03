@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{ feedback.order }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'client_app/css/read_feedback.css' %}">
+</head>
+<body>
+    <a href="/my_visits" class="back">
+        Back
+    </a>
+<div class="description">
+    <div class="container">
+        <ul>
+            <li> Worker - {{ order.worker_and_date.worker }}</li>
+            <li> Date - {{ order.worker_and_date.workday }}</li>
+            <li>Time - {{ order.time }}</li>
+            <li>Service - {{ order.service }}</li>
+        </ul>
+        <hr>
+        <h3 class="head">Description</h3>
+        {{ feedback.description }}
+    </div>
+</div>
+</body>
+</html>

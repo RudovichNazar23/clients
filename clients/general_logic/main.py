@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import render
 from django.views import View
 from administrator_app.models import Service, WorkDay, WorkDayAssignment
-from administrator_app.forms import DeactivateServiceForm
+from administrator_app.forms import DeactivateOrderForm
 from worker_app.models import Worker
 from client_app.models import Order
 import datetime
@@ -15,7 +15,7 @@ class Main(View):
             workday = WorkDay.objects.filter(date=datetime.date.today())
             assignments = WorkDayAssignment.objects.filter(workday__id__in=workday)
             orders = Order.objects.filter(worker_and_date__id__in=assignments, active=True).order_by("time")
-            form = DeactivateServiceForm()
+            form = DeactivateOrderForm()
             return render(request, "administrator_app/main_admin.html", {"current_orders": orders,
                                                                          "form": form})
 

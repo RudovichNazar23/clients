@@ -56,8 +56,8 @@ class WorkerProfileView(View):
 
     def get(self, request, first_name):
         worker = Worker.objects.filter(first_name=first_name)
-        workday = WorkDay.objects.get(date=datetime.date.today())
-        worker_assignments = WorkDayAssignment.objects.filter(worker__id__in=worker, workday=workday)
+        workday = WorkDay.objects.filter(date=datetime.date.today())
+        worker_assignments = WorkDayAssignment.objects.filter(worker__id__in=worker, workday__id__in=workday)
         current_orders = Order.objects.filter(worker_and_date__id__in=worker_assignments, active=True)
         return render(request, self.template_name, {"worker": worker,
                                                     "worker_assignments": worker_assignments,

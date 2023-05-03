@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from .models import Order, Time
+from .models import Order, Time, Feedback
 from administrator_app.models import WorkDayAssignment, Service
 
 
@@ -80,7 +80,21 @@ class OrderServiceForm(forms.ModelForm):
     pass
 
 
+class LeaveFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ("description",)
 
+    def save(self, user, order, commit=True):
+        description = self.cleaned_data.get("description")
 
+        feedback = Feedback(
+            user=user,
+            order=order,
+            description=description
+        )
+        order.has_feedback = True
+        order.save()
+        return feedback.save()
 
 

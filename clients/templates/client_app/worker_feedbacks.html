@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'client_app/css/worker_feedbacks.css' %}">
+</head>
+<body>
+    <a href="/" class="back">
+        Back
+    </a>
+    {% for feedback in feedbacks %}
+        <div class="feedback">
+            <p></p><a href="" class="user-link">{{ feedback.user.first_name }}</a></p>
+            <hr>
+            <p>
+                {{ feedback.description }}
+            </p>
+        </div>
+    {% endfor %}
+</body>
+</html>
+
+
+
+

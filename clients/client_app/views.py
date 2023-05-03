@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.views import View
 from django.contrib.auth import login, authenticate
-from .forms import RegistrationForm, LoginForm, OrderServiceForm
+from .forms import RegistrationForm, LoginForm, OrderServiceForm, LeaveFeedbackForm
 from django.contrib import messages
 from django.contrib.auth.views import LogoutView
 from django.views.generic.edit import FormView
@@ -81,6 +81,18 @@ class WorkerProfileView(View):
         return render(request, self.template_name, {"worker": worker})
 
 
+class WorkerFeedbacksView(View):
+    template_name = "client_app/worker_feedbacks.html"
+
+    def get(self, request, first_name):
+        worker = Worker.objects.filter(first_name=first_name)
+        worker_assignments = WorkDayAssignment.objects.filter(worker__id__in=worker)
+        worker_orders = Order.objects.filter(worker_and_date__id__in=worker_assignments)
+        feedbacks = Feedback.objects.filter(order__id__in=worker_orders)
+        return render(request, self.template_name, {"feedbacks": feedbacks,
+                                                    "worker": worker})
+
+
 class ServiceProfileView(View):
     template_name = "client_app/service.html"
 
@@ -99,3 +111,37 @@ class MyVisitsView(View):
     def get(self, request):
         orders = Order.objects.filter(user=request.user, active=False).order_by("-worker_and_date")
         return render(request, self.template_name, {"orders": orders})
+
+
+class LeaveFeedBackView(View):
+    template_name = "client_app/leave_feedback.html"
+
+    def get(self, request, id):
+        order = Order.objects.get(id=id)
+        form = LeaveFeedbackForm()
+        return render(request, self.template_name, {"form": form,
+                                                    "order": order
+                                                    })
+
+    def post(self, request, id):
+        order = Order.objects.get(id=id)
+        form = LeaveFeedbackForm(request.POST)
+
+        if form.is_valid():
+            form.save(user=request.user, order=order)
+            messages.success(request, "Thanks for your feedback, it was saved successfully !!!")
+            return self.get(request, id)
+        messages.error(request, "Some went wrong, please try, again...")
+        return redirect("leave_feedback")
+
+
+class ReadFeedbackView(View):
+    template_name = "client_app/read_feedback.html"
+
+    def get(self, request, id):
+        order = Order.objects.get(id=id)
+        feedback = Feedback.objects.get(order=order)
+        return render(request, self.template_name, {
+            "order": order,
+            "feedback": feedback
+        })
