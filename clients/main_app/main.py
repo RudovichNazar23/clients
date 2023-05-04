@@ -1,7 +1,6 @@
-import datetime
-
 from django.shortcuts import render
 from django.views import View
+from django.contrib.auth.models import User
 from administrator_app.models import Service, WorkDay, WorkDayAssignment
 from administrator_app.forms import DeactivateOrderForm
 from worker_app.models import Worker
@@ -33,3 +32,10 @@ class Main(View):
                 "services": services
             })
 
+
+class ClientProfileView(View):
+    template_name = "main_app/client_profile.html"
+
+    def get(self, request, first_name):
+        client = User.objects.get(first_name=first_name)
+        return render(request, self.template_name, {"client": client})

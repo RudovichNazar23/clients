@@ -13,10 +13,10 @@
 <div class="description">
     <div class="container">
         <ul>
-            <li> Worker - {{ order.worker_and_date.worker }}</li>
+            <li> Worker - <a href="{% url 'worker_info' order.worker_and_date.worker.first_name %}">{{ order.worker_and_date.worker }}</a></li>
             <li> Date - {{ order.worker_and_date.workday }}</li>
             <li>Time - {{ order.time }}</li>
-            <li>Service - {{ order.service }}</li>
+            <li>Service - <a href="{% url 'service_info' order.service %}">{{ order.service }}</a></li>
         </ul>
         <hr>
         <h3 class="head">Description</h3>

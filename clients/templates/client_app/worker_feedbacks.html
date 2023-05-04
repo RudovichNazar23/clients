@@ -12,7 +12,7 @@
     </a>
     {% for feedback in feedbacks %}
         <div class="feedback">
-            <p></p><a href="" class="user-link">{{ feedback.user.first_name }}</a></p>
+            <p></p><a href="{% url 'client_profile' feedback.user.first_name %}" class="user-link">{{ feedback.user.first_name }}</a></p>
             <hr>
             <p>
                 {{ feedback.description }}
