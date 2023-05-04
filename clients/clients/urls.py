@@ -21,5 +21,5 @@ urlpatterns = [
     path("", include("client_app.urls")),
     path("", include("worker_app.urls")),
     path("", include("administrator_app.urls")),
-    path("", include("general_logic.urls"))
+    path("", include("main_app.urls"))
 ]
