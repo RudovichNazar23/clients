@@ -1,9 +1,10 @@
 from django import forms
+from django.forms import Select
 
 from .models import Service, WorkDay, WorkDayAssignment
 from client_app.models import Order
 from django.core.exceptions import ValidationError
-import datetime
+from datetime import date
 
 
 class CreateServiceForm(forms.Form):
@@ -47,7 +48,7 @@ class CreateServiceForm(forms.Form):
 
 
 class CreateWorkDayForm(forms.Form):
-    date = forms.DateField(widget=forms.SelectDateWidget(attrs={"class": "special"}))
+    date = forms.DateField(widget=forms.NumberInput(attrs={"type": "date"}))
 
     def save(self):
         date = self.cleaned_data.get("date")
@@ -63,7 +64,7 @@ class CreateWorkDayForm(forms.Form):
             raise ValidationError(
                 "This date already exists"
             )
-        elif date <= datetime.date.today():
+        elif date <= date.today():
             raise ValidationError(
                 "The selected workday is in the past. Please choose the future date"
             )
@@ -71,14 +72,15 @@ class CreateWorkDayForm(forms.Form):
 
 
 class CreateAssignmentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["workday"] = forms.ModelChoiceField(queryset=WorkDay.objects.filter(active=True))
+
     class Meta:
         model = WorkDayAssignment
         fields = ("workday", "worker")
-        widgets = {
-            "workday": forms.Select(choices=[(i, i) for i in WorkDay.objects.all() if i.date > datetime.date.today()])
-        }
 
-    def save(self, commit=True):
+    def save(self):
         workday = self.cleaned_data.get("workday")
         worker = self.cleaned_data.get("worker")
 
@@ -105,4 +107,3 @@ class DeactivateOrderForm(forms.ModelForm):
         widgets = {
             forms.CheckboxInput()
         }
-
