@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from worker_app.models import Worker
 from django.utils.deconstruct import deconstructible
@@ -14,6 +16,7 @@ class Service(models.Model):
 
 class WorkDay(models.Model):
     date = models.DateField()
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.date}"

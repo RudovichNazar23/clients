@@ -10,6 +10,7 @@ import datetime
 
 class Main(View):
     def get(self, request):
+        self.check_dates()
         if request.user.is_superuser:
             workday = WorkDay.objects.filter(date=datetime.date.today())
             assignments = WorkDayAssignment.objects.filter(workday__id__in=workday)
@@ -31,6 +32,14 @@ class Main(View):
                 "workers": workers,
                 "services": services
             })
+
+    def check_dates(self):
+        current_date = datetime.date.today()
+        for workday in WorkDay.objects.filter(active=True):
+            if workday.date < current_date:
+                workday.active = False
+                workday.save()
+            continue
 
 
 class ClientProfileView(View):
