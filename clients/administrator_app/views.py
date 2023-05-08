@@ -2,7 +2,8 @@ import datetime
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.views import LogoutView
-from .forms import CreateServiceForm, CreateWorkDayForm, CreateAssignmentForm, DeactivateOrderForm
+from .forms import CreateServiceForm, CreateWorkDayForm, CreateAssignmentForm,\
+    DeactivateOrderForm, CreateWorkTimeForm, CreateWorkTimeAssignmentForm
 from django.views.generic.list import ListView
 from django.views import View
 from django.views.generic.edit import FormView
@@ -37,6 +38,26 @@ class CreateWorkDayView(FormView):
 class CreateWorkdayAssignment(FormView):
     template_name = "administrator_app/create_assignment.html"
     form_class = CreateAssignmentForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+class CreateWorkTimeView(FormView):
+    template_name = "administrator_app/create_worktime.html"
+    form_class = CreateWorkTimeForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+class CreateWorkTimeAssignmentView(FormView):
+    template_name = "administrator_app/create_time_assignment.html"
+    form_class = CreateWorkTimeAssignmentForm
     success_url = "/"
 
     def form_valid(self, form):

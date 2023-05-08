@@ -1,0 +1,9 @@
+
+.worker {
+    text-decoration: none;
+    color: black;
+}
+
+.worker:hover {
+    color: #6699ff;
+}

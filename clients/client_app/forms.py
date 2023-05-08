@@ -4,8 +4,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from .models import Order, Time, Feedback
-from administrator_app.models import WorkDayAssignment, Service
+from .models import Order, Feedback
+from administrator_app.models import WorkTime
 
 
 class RegistrationForm(forms.Form):
@@ -77,7 +77,30 @@ class LoginForm(forms.Form):
 
 
 class OrderServiceForm(forms.ModelForm):
-    pass
+    def __init__(self, worktime, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["time"] = forms.ModelChoiceField(queryset=worktime)
+
+    class Meta:
+        model = Order
+        fields = ("service", "time")
+        widgets = {
+            "time": forms.Select()
+        }
+
+    def save(self, user, worker_and_date, commit=True):
+        service = self.cleaned_data.get("service")
+        time = self.cleaned_data.get("time")
+
+        order = Order(
+            user=user,
+            worker_and_date=worker_and_date,
+            service=service,
+            time=time
+        )
+        time.ordered = True
+        time.save()
+        return order.save()
 
 
 class LeaveFeedbackForm(forms.ModelForm):

@@ -1,13 +1,12 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib.auth import login, authenticate
 from .forms import RegistrationForm, LoginForm, OrderServiceForm, LeaveFeedbackForm
 from django.contrib import messages
 from django.contrib.auth.views import LogoutView
-from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 from worker_app.models import Worker
-from administrator_app.models import Service, WorkDayAssignment
+from administrator_app.models import Service, WorkDayAssignment, WorkTimeAssignment
 from .models import Order, Feedback
 
 
@@ -101,8 +100,44 @@ class ServiceProfileView(View):
         return render(request, self.template_name, {"service": service})
 
 
+class ChooseWorkerView(ListView):
+    template_name = "client_app/choose_worker.html"
+    model = Worker
+    context_object_name = "workers"
+
+
+class ChooseWorkerWorkDay(View):
+    template_name = "client_app/choose_workday.html"
+
+    def get(self, request, first_name: str):
+        worker = get_object_or_404(Worker, first_name=first_name)
+        worker_dates = WorkDayAssignment.objects.filter(worker=worker)
+        return render(request, self.template_name, {"dates": worker_dates})
+
+
 class OrderServiceView(View):
-    pass
+    template_name = "client_app/order_service.html"
+    success_url = "/"
+
+    def get(self, request, id: int):
+        worker_assignment = WorkDayAssignment.objects.filter(id=id)
+        worktime = WorkTimeAssignment.objects.filter(worker_assignment__id__in=worker_assignment, ordered=False)
+        form = OrderServiceForm(worktime=worktime)
+        return render(request, self.template_name, {"worktime": worktime,
+                                                    "form": form
+                                                    })
+
+    def post(self, request, id):
+        worker_assignment = WorkDayAssignment.objects.get(id=id)
+        worktime = WorkTimeAssignment.objects.filter(worker_assignment=worker_assignment, ordered=False)
+        form = OrderServiceForm(worktime, request.POST)
+        if form.is_valid():
+            form.save(
+                user=request.user,
+                worker_and_date=worker_assignment,
+
+            )
+            return redirect(self.success_url)
 
 
 class MyVisitsView(View):
