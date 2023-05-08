@@ -1,10 +1,8 @@
 from django import forms
-from django.forms import Select
 
-from .models import Service, WorkDay, WorkDayAssignment
+from .models import Service, WorkDay, WorkDayAssignment, WorkTime, WorkTimeAssignment
 from client_app.models import Order
 from django.core.exceptions import ValidationError
-from datetime import date
 
 
 class CreateServiceForm(forms.Form):
@@ -107,3 +105,44 @@ class DeactivateOrderForm(forms.ModelForm):
         widgets = {
             forms.CheckboxInput()
         }
+
+
+class CreateWorkTimeForm(forms.ModelForm):
+    class Meta:
+        model = WorkTime
+        fields = ("time",)
+        widgets = {
+            "time": forms.TimeInput(attrs={"type": "time"
+                                           })
+        }
+
+    def save(self, commit=True):
+        time = self.cleaned_data.get("time")
+
+        worktime = WorkTime(
+            time=time,
+        )
+        return worktime.save()
+
+    def clean_time(self):
+        time = self.cleaned_data.get("time")
+
+        if WorkTime.objects.filter(time=time):
+            self.add_error("time", f"This worktime already exists")
+        return time
+
+
+class CreateWorkTimeAssignmentForm(forms.ModelForm):
+    class Meta:
+        model = WorkTimeAssignment
+        fields = ("worktime", "worker_assignment")
+
+    def save(self, commit=True):
+        worktime = self.cleaned_data.get("worktime")
+        worker_assignment = self.cleaned_data.get("worker_assignment")
+
+        time_assignment = WorkTimeAssignment(
+            worktime=worktime,
+            worker_assignment=worker_assignment
+        )
+        return time_assignment.save()

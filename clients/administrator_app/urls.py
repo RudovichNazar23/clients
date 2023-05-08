@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import SignOutView, CreateServiceView, WorkerListView, WorkerProfileView, CreateWorkDayView, CreateWorkdayAssignment, DeactivateOrderView, WorkerScheduleView
+from .views import SignOutView, CreateServiceView, WorkerListView, WorkerProfileView, CreateWorkDayView, \
+    CreateWorkdayAssignment, DeactivateOrderView, WorkerScheduleView, CreateWorkTimeView, CreateWorkTimeAssignmentView
 
 
 urlpatterns = [
@@ -9,6 +10,8 @@ urlpatterns = [
     path("worker_list/worker/<str:first_name>", WorkerProfileView.as_view(), name="worker"),
     path("create_workday", CreateWorkDayView.as_view(), name="create_workday"),
     path("create_assignment", CreateWorkdayAssignment.as_view(), name="create_assignment"),
+    path("create_worktime", CreateWorkTimeView.as_view(), name="create_worktime"),
+    path("create_worktime_assignment", CreateWorkTimeAssignmentView.as_view(), name="create_worktime_assignment"),
     path("deactivate_order/<int:id>", DeactivateOrderView.as_view(), name="deactivate_order"),
     path("worker_schedule/<str:first_name>", WorkerScheduleView.as_view(), name="worker_schedule"),
 ]

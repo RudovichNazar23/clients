@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from administrator_app.models import Service, WorkDayAssignment
+from administrator_app.models import Service, WorkDayAssignment, WorkTime
 from django.utils.deconstruct import deconstructible
 
 
@@ -35,7 +35,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     worker_and_date = models.ForeignKey(WorkDayAssignment, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    time = models.CharField(verbose_name="Time of service", max_length=100, choices=TIME_CHOICES)
+    time = models.CharField(max_length=255)
     has_feedback = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
