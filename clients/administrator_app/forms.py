@@ -146,3 +146,11 @@ class CreateWorkTimeAssignmentForm(forms.ModelForm):
             worker_assignment=worker_assignment
         )
         return time_assignment.save()
+
+    def clean(self):
+        worktime = self.cleaned_data.get("worktime")
+        worker_assignment = self.cleaned_data.get("worker_assignment")
+
+        if WorkTimeAssignment.objects.filter(worktime=worktime, worker_assignment=worker_assignment):
+            self.add_error("worktime", "This time for current assignment already exists")
+
