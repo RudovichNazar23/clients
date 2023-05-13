@@ -1,16 +1,12 @@
 {% extends 'templates/home_page.html' %}
+
+{% block links %}
+            <a href="my_schedule" class="btn btn-primary">  My schedule </a>
+            <a href="{% url 'worker_feedbacks' request.user.first_name %}" class="btn btn-primary"> Feedbacks </a>
+            <a href="logout" class="btn btn-primary"> Logout </a>
+{% endblock %}
+
 {% block content %}
-    <header>
-		<h1>Welcome {{ request.user.first_name }}</h1>
-	</header>
-    <nav class="nav-bar">
-        <ul>
-            <li class="nav-elem"> <a href="my_schedule">  My schedule </a></li>
-            <li class="nav-elem"> <a href="{% url 'worker_feedbacks' request.user.first_name %}"> Feedbacks </a></li>
-            <li class="nav-elem"> <a href="logout"> Logout </a></li>
-        </ul>
-    <hr>
-    </nav>
         <div class="d-flex flex-column bd-highlight align-items-center">
             {% if not current_orders %}
                 <div class="mt-5">There aren't any orders today...</div>
@@ -34,6 +30,5 @@
                   </tbody>
                 </table>
             {% endif %}
-
         </div>
 {% endblock %}
