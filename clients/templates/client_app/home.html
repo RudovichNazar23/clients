@@ -1,75 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <title>
-        {% if request.user.is_authenticated %}
-            {{ request.user.first_name }}
-        {% else %}
-            Home
-        {% endif %}
-    </title>
-    <link rel="stylesheet" type="text/css" href="{% static 'client_app/css/home.css' %}">
-</head>
-<body>
-    {% if request.user.is_authenticated %}
-        <header>
-            <h2>
-                Welcome {{ request.user.first_name }}
-            </h2>
-        </header>
-        <nav class="nav-bar">
-            <ul>
-                <li class="nav-elem"> <a href="my_profile"> My profile </a> </li>
-                <li class="nav-elem"><a href="choose_worker"> Order service </a></li>
-                <li class="nav-elem"><a href="logout"> Logout </a></li>
-            </ul>
-        </nav>
-        <div class="info">
-            <div class="barbers">
-                Our Barbers
-                <hr>
-                <ul class="info-list">
-                    {% for worker in workers %}
-                        <li class="var">
-                            <p><a href="{% url 'worker_info' worker.first_name %}">{{ worker.first_name }}</a></p>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="service">
-                Service
-                <hr>
-                <ul class="info-list">
-                    {% for service in services %}
-                        <li class="var">
-                            <p><a href="{% url 'service_info' service.name %}">{{ service.name }}</a></p>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+{% extends 'templates/home_page.html' %}
 
-    {% else %}
-            <p class="hello">
-                Hello, nice to meet you on our page!
-            </p>
-            <p class="hello">If you want to sign up for a haircut, choose next option:</p>
-            <div class="buttons">
-                    <a href="registration">
-                        <button class="button" role="button">
-                            Registration
-                        </button>
-                    </a>
-                <br>
-                <br>
-                    <a href="login">
-                        <button class="button" role="button">
-                            Login
-                        </button>
-                    </a>
-            </div>
-    {% endif %}
-</body>
-</html>
+{% block content %}
+    <header>
+		<h1>Welcome {{ request.user.first_name }}</h1>
+	</header>
+    <nav class="nav-bar">
+        <ul>
+            <li class="nav-elem"> <a href="my_profile"> My profile </a> </li>
+            <li class="nav-elem"><a href="choose_worker"> Order service </a></li>
+            <li class="nav-elem"><a href="logout"> Logout </a></li>
+        </ul>
+    </nav>
+    <div class="info">
+        <div class="barbers">
+            Our Barbers
+            <hr>
+            <ul class="info-list">
+                {% for worker in workers %}
+                    <li class="var">
+                        <p><a href="{% url 'worker_info' worker.first_name %}">{{ worker.first_name }}</a></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="service">
+            Service
+            <hr>
+            <ul class="info-list">
+                {% for service in services %}
+                    <li class="var">
+                        <p><a href="{% url 'service_info' service.name %}">{{ service.name }}</a></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
