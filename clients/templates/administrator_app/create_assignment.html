@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/create_assignment.css' %}">
-</head>
-<body>
+{% extends 'templates/form.html' %}
+{% block content %}
     <div class="form-container">
         <form action="{% url 'create_assignment' %}" method="POST">{% csrf_token %}
             {% for field in form %}
@@ -18,5 +11,4 @@
 
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
