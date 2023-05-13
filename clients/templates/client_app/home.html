@@ -1,16 +1,12 @@
 {% extends 'templates/home_page.html' %}
 
+{% block links %}
+        <a href="my_profile" class="btn btn-primary"> My profile </a>
+        <a href="choose_worker" class="btn btn-primary"> Order service </a>
+        <a href="logout" class="btn btn-primary"> Logout </a>
+{% endblock %}
+
 {% block content %}
-    <header>
-		<h1>Welcome {{ request.user.first_name }}</h1>
-	</header>
-    <nav class="nav-bar">
-        <ul>
-            <li class="nav-elem"> <a href="my_profile"> My profile </a> </li>
-            <li class="nav-elem"><a href="choose_worker"> Order service </a></li>
-            <li class="nav-elem"><a href="logout"> Logout </a></li>
-        </ul>
-    </nav>
     <div class="info">
         <div class="barbers">
             Our Barbers
@@ -35,5 +31,4 @@
             </ul>
         </div>
     </div>
-
 {% endblock %}

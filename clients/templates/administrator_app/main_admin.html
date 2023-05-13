@@ -1,21 +1,17 @@
 {% extends 'templates/home_page.html' %}
+
+{% block links %}
+			<a href="admin" class="btn btn-primary"> Admin panel </a>
+			<a href="create_service" class="btn btn-primary">Create Service</a>
+			<a href="create_workday" class="btn btn-primary">Create Workday</a>
+			<a href="create_assignment" class="btn btn-primary">Create Assignment</a>
+			<a href="create_worktime" class="btn btn-primary">Create Worktime</a>
+			<a href="create_worktime_assignment" class="btn btn-primary">Create Worktime Assignment</a>
+			<a href="worker_list" class="btn btn-primary">Worker List</a>
+			<a href="logout" class="btn btn-primary">Logout</a>
+{% endblock %}
+
 {% block content %}
-	<header>
-		<h1>Welcome {{ request.user.first_name }}</h1>
-	</header>
-	<nav class="nav-bar">
-		<ul>
-			<li class="nav-elem"><a href="admin"> Admin panel </a> </li>
-			<li class="nav-elem"><a href="create_service">Create Service</a></li>
-			<li class="nav-elem"><a href="create_workday">Create Workday</a></li>
-			<li class="nav-elem"><a href="create_assignment">Create Assignment</a></li>
-			<li class="nav-elem"><a href="create_worktime">Create Worktime</a></li>
-			<li class="nav-elem"><a href="create_worktime_assignment">Create Worktime Assignment</a></li>
-			<li class="nav-elem"><a href="worker_list">Worker List</a></li>
-			<li class="nav-elem"><a href="logout">Logout</a></li>
-		</ul>
-	<hr>
-	</nav>
 	 <div class="d-flex flex-column bd-highlight align-items-center mt-2">
 			{% if not current_orders %}
 				<div class="mt-5">There aren't any orders today...</div>

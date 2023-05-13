@@ -1,25 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'client_app/css/service_info.css' %}">
-</head>
-<body>
-    <head>
-        <title>Example Website Layout</title>
-    </head>
+{% extends 'templates/home_page.html' %}
+
+
+{% block header %}
     {% for info in service %}
-        <header>
-            <h1>{{ info.name }}</h1>
-        </header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-            </ul>
-        </nav>
-        <main>
+        {{ info.name }}
+    {% endfor %}
+{% endblock %}
+
+{% block links %}
+    <a class="btn btn-primary" href="/"> Home </a>
+{% endblock %}
+
+{% block content %}
+    <main>
+        {% for info in service %}
             <div class="description">
                 <h2 class="name">Description</h2>
                 <hr>
@@ -29,7 +23,6 @@
                     Price - {{ info.price }} $
                 </h3>
             </div>
-        </main>
-    {% endfor %}
-</body>
-</html>
+        {% endfor %}
+    </main>
+{% endblock %}
