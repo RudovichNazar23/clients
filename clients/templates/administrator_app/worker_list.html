@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <title>Workers</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'administrator_app/css/worker_list.css' %}">
-</head>
-<body>
-    <a href="/" class="home">
-        Home
-    </a>
+{% extends 'templates/list.html' %}
 
+{% block content %}
     <div class="workers">
         {% for worker in workers %}
             <div>
@@ -21,5 +11,4 @@
             </div>
         {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}

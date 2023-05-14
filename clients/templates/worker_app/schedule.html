@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <title>Your schedule</title>
-    <link rel="stylesheet"  type="text/css" href="{% static 'worker_app/css/schedule.css' %}">
-</head>
-<body>
-    <a href="/" class="home">
-        Home
-    </a>
-<hr>
+{% extends 'templates/list.html' %}
+
+{% block content %}
     {% if not assignments  %}
         <h2>You don't have any assignments...</h2>
     {% else %}
@@ -20,5 +10,4 @@
                 {% endfor %}
          </div>
     {% endif %}
-</body>
-</html>
+{% endblock %}
