@@ -1,5 +1,11 @@
 {% extends 'templates/list.html' %}
 
+{% block link %}
+    <a href="/my_profile" class="home">
+            Home
+    </a>
+{% endblock %}
+
 {% block content %}
     {% if not orders %}
         <div class="mt-5 d-flex align-items-center justify-content-center" ><h3>You don't have orders...</h3> </div>
