@@ -165,7 +165,6 @@ class LeaveFeedBackView(View):
 
         if form.is_valid():
             form.save(user=request.user, order=order)
-            messages.success(request, "Thanks for your feedback, it was saved successfully !!!")
             return redirect(self.success_url)
         messages.error(request, "Some went wrong, please try, again...")
         return redirect("leave_feedback")
